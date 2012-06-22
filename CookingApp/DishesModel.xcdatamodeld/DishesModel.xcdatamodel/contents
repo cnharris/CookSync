@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1171" systemVersion="11D50b" minimumToolsVersion="Xcode 4.1" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="DishesModel" syncable="YES">
+        <attribute name="duration" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="icon" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="prepTime" optional="YES" attributeType="Date" indexed="YES" syncable="YES"/>
+        <attribute name="startTime" optional="YES" attributeType="Date" indexed="YES" syncable="YES"/>
+        <attribute name="timeLeft" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="timeLeftAction" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="DishesModel" positionX="160" positionY="588" width="119" height="150"/>
+    </elements>
+</model>

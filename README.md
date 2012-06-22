@@ -1,4 +1,0 @@
-CookSync
-========
-
-CookSync

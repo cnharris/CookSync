@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2182" systemVersion="11D50b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="4">
+    <dependencies>
+        <deployment defaultVersion="1296" identifier="iOS"/>
+        <development version="4300" defaultVersion="4200" identifier="xcode"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1181"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller - Dishes-->
+        <scene sceneID="xOA-X7-oZF">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aOM-rf-I4w" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController definesPresentationContext="YES" id="T6K-Vs-3ld" userLabel="Navigation Controller - Dishes" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="" id="iDD-aR-JAN" userLabel="Tab Bar Item - Dishes"/>
+                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="B5U-mt-WE2">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="2" kind="relationship" relationship="rootViewController" id="Bg4-BE-cAi"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="407" y="-820"/>
+        </scene>
+        <!--Configure Controller - Dishes-->
+        <scene sceneID="11">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="10" sceneMemberID="firstResponder"/>
+                <viewController title="First" id="2" userLabel="Configure Controller - Dishes" customClass="ConfigureController" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="cDd-Oj-i8S"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="1007" y="-820"/>
+        </scene>
+        <!--Navigation Controller - Start-->
+        <scene sceneID="9JU-Wj-zqU">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6u5-e7-2Hs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController definesPresentationContext="YES" id="02T-bM-XdH" userLabel="Navigation Controller - Start" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="" id="TyA-0e-h5n"/>
+                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="YeE-vv-CUT">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="2h6-4A-j8f" kind="relationship" relationship="rootViewController" id="bMZ-mG-efz"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="407" y="-196"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Mt8-vI-lYd">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dt6-ze-ZQQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController definesPresentationContext="YES" id="XTp-c2-Pnn" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="" id="7Lp-YD-yX9"/>
+                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="PoK-Ff-WWX">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Oie-jb-DwR" kind="relationship" relationship="rootViewController" id="W7H-iw-66g"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="407" y="419"/>
+        </scene>
+        <!--Settings Controller-->
+        <scene sceneID="iCj-YS-6gc">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Agc-dW-zG3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="Oie-jb-DwR" customClass="SettingsController" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="DXN-1C-QPZ"/>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="1007" y="419"/>
+        </scene>
+        <!--Start Controller - Start-->
+        <scene sceneID="adp-SX-Xg0">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4d4-A2-I17" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="2h6-4A-j8f" userLabel="Start Controller - Start" customClass="StartController" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="0D3-cW-5Fu"/>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="1007" y="-196"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="15">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="14" sceneMemberID="firstResponder"/>
+                <tabBarController id="4" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="pup-zE-Uo2"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="5">
+                        <rect key="frame" x="0.0" y="431" width="320" height="49"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="T6K-Vs-3ld" kind="relationship" relationship="viewControllers" id="P78-3A-xie"/>
+                        <segue destination="02T-bM-XdH" kind="relationship" relationship="viewControllers" id="uSJ-Vl-hdL"/>
+                        <segue destination="XTp-c2-Pnn" kind="relationship" relationship="viewControllers" id="gy0-ku-qXb"/>
+                    </connections>
+                </tabBarController>
+            </objects>
+            <point key="canvasLocation" x="-197" y="-196"/>
+        </scene>
+        <!--Navigation Controller - Settings-->
+        <scene sceneID="rDF-TO-I0V">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kUf-Ll-sdu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController definesPresentationContext="YES" id="aW0-8f-UAq" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Settings" image="settingsTabIcon.png" id="Hjc-S1-qpA"/>
+                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="Vv7-qy-CD9">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="407" y="419"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="settingsTabIcon.png" width="30" height="30"/>
+    </resources>
+    <classes>
+        <class className="ConfigureController" superclassName="UtilController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ConfigureController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="canvas" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="dishes" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="instructions" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="welcomeView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="SettingsController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SettingsController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="settings" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="viewHeader" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="StartController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/StartController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="addDish" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="ampmBox" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="canvas" candidateClass="UIView"/>
+                <relationship kind="outlet" name="dishes" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="doneAlert" candidateClass="UIAlertView"/>
+                <relationship kind="outlet" name="hoursBox" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelTapGesture" candidateClass="UITapGestureRecognizer"/>
+                <relationship kind="outlet" name="minsBox" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="noDishes" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="overlay" candidateClass="UIView"/>
+                <relationship kind="outlet" name="picker" candidateClass="UIDatePicker"/>
+                <relationship kind="outlet" name="startStop" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="stopTimeField" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="stopTimeFieldAndButtonContainer" candidateClass="UIView"/>
+                <relationship kind="outlet" name="timeView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="UtilController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UtilController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="doneBarButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="editBarButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="plusBarButton" candidateClass="UIBarButtonItem"/>
+            </relationships>
+        </class>
+    </classes>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination"/>
+    </simulatedMetricsContainer>
+</document>
