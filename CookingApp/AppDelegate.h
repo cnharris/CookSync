@@ -16,7 +16,6 @@
 #import "SettingsController.h"
 #import "DishdetailController.h"
 #import "SettingsdetailController.h"
-#import "UtilController.h"
 
 #define AD ((AppDelegate *)[[UIApplication sharedApplication] delegate])
 #define BUFFER_PREP 0.1
@@ -49,7 +48,6 @@
 @property (nonatomic, retain) SettingsController *settingsController;
 @property (nonatomic, retain) DishdetailController *timerController;
 @property (nonatomic, retain) SettingsdetailController *settingsdetailController;
-@property (nonatomic, retain) UtilController *utilController;
 @property BOOL timerRunning;
 @property BOOL allDone;
 

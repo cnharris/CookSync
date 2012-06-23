@@ -8,7 +8,6 @@
 
 #import <QuartzCore/QuartzCore.h>
 #import "AppDelegate.h"
-#import "UtilController.h"
 #import "ConfigureController.h"
 #import "DishdetailController.h"
 #import "DishController.h"
@@ -24,6 +23,9 @@
 @synthesize amountOfDishes;
 @synthesize endDateTime;
 @synthesize welcomeView;
+@synthesize editBarButton;
+@synthesize doneBarButton;
+@synthesize plusBarButton;
 
 - (id)init
 {
@@ -34,7 +36,7 @@
 {
     [super viewDidLoad];
     [self loadCustomTabbar];
-    [self setBackground:self.view withBackground:nil];
+    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"background"]]];
     [self setupNavButtons];
     [self buildNavBar:@"dishes"];
     [self setupWelcomeMenu];
@@ -68,6 +70,56 @@
 {
     [super viewWillDisappear:YES];
     [dishes setEditing:NO animated:YES];
+}
+
+- (void)buildNavBar:(NSString *)type
+{
+    UIImageView *bgImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navbar_dishes"]];
+    [bgImageView setFrame:CGRectMake(0, 0, STD_WIDTH, 44)];
+    
+    CALayer *navLayer = self.navigationController.navigationBar.layer;
+    CGMutablePathRef path = CGPathCreateMutable();
+    CGPathAddRect(path, NULL, self.navigationController.navigationBar.bounds);
+    navLayer.shadowPath = path;
+    CGPathCloseSubpath(path);
+    CGPathRelease(path);
+    
+    navLayer.shadowColor = [UIColor darkGrayColor].CGColor;
+    navLayer.shadowOffset = CGSizeMake(0, 3);
+    navLayer.shadowRadius = 5;
+    navLayer.shadowOpacity = 1.0;
+    
+    // Default clipsToBounds is YES, will clip off the shadow, so we disable it.
+    self.navigationController.navigationBar.clipsToBounds = NO;
+    
+    [self.navigationController.navigationBar addSubview:bgImageView];
+}
+     
+ - (void)setupNavButtons
+{
+    UIImage *editIcon = [UIImage imageNamed:@"nav_edit_icon.png"];
+    UIButton *editButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [editButton setImage:editIcon forState:UIControlStateNormal];
+    editButton.showsTouchWhenHighlighted = YES;
+    editButton.frame = CGRectMake(0.0, 0.0, editIcon.size.width, editIcon.size.height);
+    [editButton addTarget:self action:@selector(toggleEdit:) forControlEvents:UIControlEventTouchUpInside];
+    editBarButton = [[UIBarButtonItem alloc] initWithCustomView:editButton];
+    
+    UIImage *doneIcon = [UIImage imageNamed:@"nav_done_icon.png"];
+    UIButton *doneButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [doneButton setImage:doneIcon forState:UIControlStateNormal];
+    doneButton.showsTouchWhenHighlighted = YES;
+    doneButton.frame = CGRectMake(0.0, 0.0, doneIcon.size.width, doneIcon.size.height);
+    [doneButton addTarget:self action:@selector(toggleEdit:) forControlEvents:UIControlEventTouchUpInside];
+    doneBarButton = [[UIBarButtonItem alloc] initWithCustomView:doneButton];
+    
+    UIImage *plusIcon = [UIImage imageNamed:@"nav_plus_icon.png"];
+    UIButton *plusButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [plusButton setImage:plusIcon forState:UIControlStateNormal];
+    plusButton.showsTouchWhenHighlighted = YES;
+    plusButton.frame = CGRectMake(0.0, 0.0, plusIcon.size.width, plusIcon.size.height);
+    [plusButton addTarget:self action:@selector(showAddDishView:) forControlEvents:UIControlEventTouchUpInside];
+    plusBarButton = [[UIBarButtonItem alloc] initWithCustomView:plusButton];
 }
 
 - (void)loadCustomTabbar
@@ -123,6 +175,15 @@
     }
 }
 
+- (BOOL)dishesExist
+{
+    NSLog(@"DISH COUNT: %d",[AD.configureTracker count]);
+    if([AD.configureTracker count] > 0){
+        return YES;
+    }
+    return NO;
+}
+
 - (void)setupDishes
 {
     dishCoords dishAttrs;
@@ -149,9 +210,9 @@
 {
     UIImageView *welcome = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"welcome.png"]];
     [welcome setFrame:CGRectMake(0, -50, STD_WIDTH, 480)];
-    [welcome setBackgroundColor:[UIColor colorWithPatternImage:backgroundImage]];
+    [welcome setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"background"]]];
     welcomeView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, STD_WIDTH, STD_HEIGHT)];
-    [welcomeView setBackgroundColor:[UIColor colorWithPatternImage:backgroundImage]];
+    [welcomeView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"background"]]];
     [welcomeView addSubview:welcome];
     
     UIButton *plusIcon = [[UIButton alloc] initWithFrame:CGRectMake(125, 260, 70, 65)];
@@ -166,7 +227,7 @@
 - (UIImageView *)dishesBackground
 {
     UIImageView *bgImg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, STD_WIDTH, STD_HEIGHT)];
-    [bgImg setImage:backgroundImage];
+    [bgImg setImage:[UIImage imageNamed:@"background"]];
     return bgImg;
 }
 
@@ -241,6 +302,21 @@
         emptyLabel.backgroundColor = [UIColor clearColor];
     }
     return emptyLabel;
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath 
+{
+    return UITableViewCellEditingStyleDelete;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{    
+    return 1;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath 
+{ 
+    return CELL_HEIGHT;
 }
 
 - (UIBarButtonItem *)leftBarButtonItem

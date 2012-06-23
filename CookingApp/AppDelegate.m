@@ -38,7 +38,6 @@
 @synthesize settingsController;
 @synthesize settingsdetailController;
 @synthesize timerController;
-@synthesize utilController;
 @synthesize timerRunning;
 @synthesize allDone;
 
