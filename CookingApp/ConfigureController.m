@@ -38,24 +38,13 @@
     [self setupBarButtonActions];
 }
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:NO];
-    [self enableNavigationBarButtons];
-}
-
 - (void)viewWillAppear:(BOOL)animated
 {
     NSLog(@"Appear");
     [super viewWillAppear:NO];
     [self toggleWelcomeAndDishViews];
     [self resizeDishesTable];
+    [self enableNavigationBarButtons];
     [dishes reloadData];
     //Reload all dish table entries after edits
 }
@@ -82,19 +71,16 @@
             welcomeView.alpha = 1.0;
         }];
         [dishes setHidden:YES];
-        self.navigationItem.leftBarButtonItem = nil;
+        [self.navigationController setNavigationBarHidden:YES];
     } else {
         [welcomeView setAlpha:1.0];
         [UIView animateWithDuration:0.30 animations:^{
             welcomeView.alpha = 0.0;
         }];
+        [self.navigationController setNavigationBarHidden:NO];
         [welcomeView setHidden:YES];
         [dishes setHidden:NO];
         [dishes reloadData];
-        if([self dishesExist]){
-            self.navigationItem.leftBarButtonItem = editBarButton;
-            [editBarButton setTag:0];
-        }
     }
 }
 
@@ -123,13 +109,13 @@
 - (void)setupWelcomeMenu
 {
     UIImageView *welcome = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"welcome.png"]];
-    [welcome setFrame:CGRectMake(0, -50, STD_WIDTH, 480)];
+    [welcome setFrame:CGRectMake(0, -30, STD_WIDTH, 480)];
     [welcome setBackgroundColor:defaultBackground];
     welcomeView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, STD_WIDTH, STD_HEIGHT)];
     [welcomeView setBackgroundColor:defaultBackground];
     [welcomeView addSubview:welcome];
     
-    UIButton *plusIcon = [[UIButton alloc] initWithFrame:CGRectMake(125, 260, 70, 65)];
+    UIButton *plusIcon = [[UIButton alloc] initWithFrame:CGRectMake(123, 280, 70, 65)];
     [plusIcon setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"welcome_plus_icon.png"]]];
     [plusIcon addTarget:self action:@selector(showAddDishView:) forControlEvents:UIControlEventTouchUpInside];
     [welcomeView addSubview:plusIcon];
