@@ -7,15 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "DishdetailController.h"
-#import "AudioController.h"
-#import "SettingsController.h"
-#import "DishdetailController.h"
-#import "DishController.h"
-#import "FavoritesController.h"
-#import "SettingsdetailController.h"
-
-#include <stdlib.h>
 
 @implementation AppDelegate
 

@@ -6,7 +6,6 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import <QuartzCore/QuartzCore.h>
 #import "AppDelegate.h"
 #import "DishdetailController.h"
 
@@ -32,11 +31,10 @@
 - (void)viewDidLoad 
 {
     [super viewDidLoad];
-    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"background.png"]]];
-    canvas = [[UIView alloc] initWithFrame:CGRectMake(10, 8, 300, 340)];
-    [canvas setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"background.png"]]];
-    [canvas setBackgroundColor:[UIColor whiteColor]];
+    [self.view setBackgroundColor:defaultBackground];
+    canvas = [self buildCanvasWithX:10 withY:8 withWidth:300 withHeight:340];
     [[canvas layer] setCornerRadius:6.0];
+    [canvas setBackgroundColor:[UIColor whiteColor]];
     [self.view addSubview:canvas];
     
 	// Do any additional setup after loading the view.
@@ -48,16 +46,12 @@
     [self saveFieldValuesToConfigureTracker];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    [self setupNavBar];
-}
-
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewDidAppear:NO];
-    //[canvas setContentOffset:CGPointZero];
-    [self setupNavBar];
+    [self buildNavBar:@"dishes"];
+    [backButton addTarget:self action:@selector(cancelDish:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     [self getValues];
     [self buildName];
     [self buildDurationField];
@@ -92,11 +86,10 @@
 
 - (void)saveFieldValuesToConfigureTracker
 {
-    AppDelegate *ad = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [currentValues setTitle:[nameField text]];
     [currentValues setDuration:[durationField text]];
-    [ad.configureTracker replaceObjectAtIndex:did withObject:currentValues];
-    [ad.configureController.dishes reloadData];
+    [AD.configureTracker replaceObjectAtIndex:did withObject:currentValues];
+    [AD.configureController.dishes reloadData];
 }
 
 - (void)setNavTitle
@@ -106,23 +99,7 @@
 
 - (void)getValues
 {
-    AppDelegate *ad = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    currentValues = [ad.configureTracker objectAtIndex:did];
-}
-
-- (void)setupNavBar
-{
-    UIImageView *bgImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navbar_dishes.png"]];
-    [bgImageView setFrame:CGRectMake(0, 0, STD_WIDTH, 43)];
-    [self.navigationController.navigationBar addSubview:bgImageView];
-    
-    UIImage *backIcon = [UIImage imageNamed:@"nav_back_left_icon.png"];
-    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [backButton setImage:backIcon forState:UIControlStateNormal];
-    backButton.showsTouchWhenHighlighted = YES;
-    backButton.frame = CGRectMake(0.0, 0.0, backIcon.size.width, backIcon.size.height);
-    [backButton addTarget:self action:@selector(cancelDish:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+    currentValues = [AD.configureTracker objectAtIndex:did];
 }
 
 - (void)buildName
@@ -258,20 +235,7 @@
 
 - (BOOL)checkIfTimerIsRunning
 {
-    return ![(AppDelegate *)[[UIApplication sharedApplication] delegate] timerRunning];
-}
-
-- (void)textFieldDidBeginEditing:(UITextField *)textField
-{
-    if([[textField text] isEqual:@"New Dish"]){
-        [textField setText:@""];
-    }
-}
-
-- (void)textViewDidBeginEditing:(UITextView *)textView{
-    if([[textView text] isEqual:@"Describe your dish..."]){
-        [textView setText:@""];
-    }
+    return ![AD timerRunning];
 }
 
 - (NSMutableDictionary *)parseDuration
@@ -329,11 +293,6 @@
     int hours = durationHoursSlider.value;
     int mins = (int)(slider.value + 0.5f);
     [durationField setText:[[NSString alloc] initWithFormat:@"%d hours, %d min", hours,mins]];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 @end

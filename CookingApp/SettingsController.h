@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UtilController.h"
+#import "SettingsdetailController.h"
 
-@interface SettingsController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface SettingsController : UtilController <UITableViewDelegate, UITableViewDataSource>
 {
     IBOutlet UITableView *settings;
     IBOutlet UIView *viewHeader;

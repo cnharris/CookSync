@@ -6,13 +6,8 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import <QuartzCore/QuartzCore.h>
 #import "AppDelegate.h"
 #import "ConfigureController.h"
-#import "DishdetailController.h"
-#import "DishController.h"
-#import "StartCell.h"
-
 
 @implementation ConfigureController
 
@@ -23,9 +18,6 @@
 @synthesize amountOfDishes;
 @synthesize endDateTime;
 @synthesize welcomeView;
-@synthesize editBarButton;
-@synthesize doneBarButton;
-@synthesize plusBarButton;
 
 - (id)init
 {
@@ -36,12 +28,14 @@
 {
     [super viewDidLoad];
     [self loadCustomTabbar];
-    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"background"]]];
-    [self setupNavButtons];
+    [self.view setBackgroundColor:defaultBackground];
     [self buildNavBar:@"dishes"];
     [self setupWelcomeMenu];
     [self setupDishes];
     [self enableNavigationBarButtons];
+    
+    [self clearBarButtonActions];
+    [self setupBarButtonActions];
 }
 
 - (void)viewDidUnload
@@ -72,82 +66,11 @@
     [dishes setEditing:NO animated:YES];
 }
 
-- (void)buildNavBar:(NSString *)type
+- (void)setupBarButtonActions
 {
-    UIImageView *bgImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navbar_dishes"]];
-    [bgImageView setFrame:CGRectMake(0, 0, STD_WIDTH, 44)];
-    
-    CALayer *navLayer = self.navigationController.navigationBar.layer;
-    CGMutablePathRef path = CGPathCreateMutable();
-    CGPathAddRect(path, NULL, self.navigationController.navigationBar.bounds);
-    navLayer.shadowPath = path;
-    CGPathCloseSubpath(path);
-    CGPathRelease(path);
-    
-    navLayer.shadowColor = [UIColor darkGrayColor].CGColor;
-    navLayer.shadowOffset = CGSizeMake(0, 3);
-    navLayer.shadowRadius = 5;
-    navLayer.shadowOpacity = 1.0;
-    
-    // Default clipsToBounds is YES, will clip off the shadow, so we disable it.
-    self.navigationController.navigationBar.clipsToBounds = NO;
-    
-    [self.navigationController.navigationBar addSubview:bgImageView];
-}
-     
- - (void)setupNavButtons
-{
-    UIImage *editIcon = [UIImage imageNamed:@"nav_edit_icon.png"];
-    UIButton *editButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [editButton setImage:editIcon forState:UIControlStateNormal];
-    editButton.showsTouchWhenHighlighted = YES;
-    editButton.frame = CGRectMake(0.0, 0.0, editIcon.size.width, editIcon.size.height);
     [editButton addTarget:self action:@selector(toggleEdit:) forControlEvents:UIControlEventTouchUpInside];
-    editBarButton = [[UIBarButtonItem alloc] initWithCustomView:editButton];
-    
-    UIImage *doneIcon = [UIImage imageNamed:@"nav_done_icon.png"];
-    UIButton *doneButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [doneButton setImage:doneIcon forState:UIControlStateNormal];
-    doneButton.showsTouchWhenHighlighted = YES;
-    doneButton.frame = CGRectMake(0.0, 0.0, doneIcon.size.width, doneIcon.size.height);
     [doneButton addTarget:self action:@selector(toggleEdit:) forControlEvents:UIControlEventTouchUpInside];
-    doneBarButton = [[UIBarButtonItem alloc] initWithCustomView:doneButton];
-    
-    UIImage *plusIcon = [UIImage imageNamed:@"nav_plus_icon.png"];
-    UIButton *plusButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [plusButton setImage:plusIcon forState:UIControlStateNormal];
-    plusButton.showsTouchWhenHighlighted = YES;
-    plusButton.frame = CGRectMake(0.0, 0.0, plusIcon.size.width, plusIcon.size.height);
     [plusButton addTarget:self action:@selector(showAddDishView:) forControlEvents:UIControlEventTouchUpInside];
-    plusBarButton = [[UIBarButtonItem alloc] initWithCustomView:plusButton];
-}
-
-- (void)loadCustomTabbar
-{
-    
-    UIImage *selectedImage0 = [UIImage imageNamed:@"tab_dishes_selected.png"];
-    UIImage *unselectedImage0 = [UIImage imageNamed:@"tab_dishes.png"];
-    
-    UIImage *selectedImage1 = [UIImage imageNamed:@"tab_start_selected.png"];
-    UIImage *unselectedImage1 = [UIImage imageNamed:@"tab_start.png"];
-    
-    UIImage *selectedImage2 = [UIImage imageNamed:@"tab_settings_selected.png"];
-    UIImage *unselectedImage2 = [UIImage imageNamed:@"tab_settings.png"];
-    
-    UITabBar *tabBar = self.tabBarController.tabBar;
-    [tabBar setBackgroundImage:[UIImage imageNamed:@"tabbar.png"]];
-    UITabBarItem *item0 = [tabBar.items objectAtIndex:0];
-    [item0 setTitle:@"Dishes"];
-    UITabBarItem *item1 = [tabBar.items objectAtIndex:1];
-    [item1 setTitle:@"Start"];
-    UITabBarItem *item2 = [tabBar.items objectAtIndex:2];
-    [item2 setTitle:@"Settings"];
-   
-    [item0 setFinishedSelectedImage:selectedImage0 withFinishedUnselectedImage:unselectedImage0];
-    [item1 setFinishedSelectedImage:selectedImage1 withFinishedUnselectedImage:unselectedImage1];
-    [item2 setFinishedSelectedImage:selectedImage2 withFinishedUnselectedImage:unselectedImage2];
-    
-	// Do any additional setup after loading the view, typically from a nib.
 }
 
 - (void)toggleWelcomeAndDishViews
@@ -173,15 +96,6 @@
             [editBarButton setTag:0];
         }
     }
-}
-
-- (BOOL)dishesExist
-{
-    NSLog(@"DISH COUNT: %d",[AD.configureTracker count]);
-    if([AD.configureTracker count] > 0){
-        return YES;
-    }
-    return NO;
 }
 
 - (void)setupDishes
@@ -210,9 +124,9 @@
 {
     UIImageView *welcome = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"welcome.png"]];
     [welcome setFrame:CGRectMake(0, -50, STD_WIDTH, 480)];
-    [welcome setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"background"]]];
+    [welcome setBackgroundColor:defaultBackground];
     welcomeView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, STD_WIDTH, STD_HEIGHT)];
-    [welcomeView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"background"]]];
+    [welcomeView setBackgroundColor:defaultBackground];
     [welcomeView addSubview:welcome];
     
     UIButton *plusIcon = [[UIButton alloc] initWithFrame:CGRectMake(125, 260, 70, 65)];
@@ -227,7 +141,7 @@
 - (UIImageView *)dishesBackground
 {
     UIImageView *bgImg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, STD_WIDTH, STD_HEIGHT)];
-    [bgImg setImage:[UIImage imageNamed:@"background"]];
+    [bgImg setImage:defaultBackgroundImage];
     return bgImg;
 }
 
@@ -282,7 +196,7 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) 
     {
         [AD.configureTracker removeObjectAtIndex:indexPath.row];
-        [dishes deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [dishes deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         [dishes setContentSize:CGSizeMake(STD_WIDTH, dishes.contentSize.height - CELL_HEIGHT)];
         [self toggleWelcomeAndDishViews];
     }
@@ -302,21 +216,6 @@
         emptyLabel.backgroundColor = [UIColor clearColor];
     }
     return emptyLabel;
-}
-
-- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath 
-{
-    return UITableViewCellEditingStyleDelete;
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{    
-    return 1;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath 
-{ 
-    return CELL_HEIGHT;
 }
 
 - (UIBarButtonItem *)leftBarButtonItem

@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
+#import "UtilController.h"
 #import "DishController.h"
 
-@interface DishdetailController : UIViewController <UITextFieldDelegate>
+@interface DishdetailController : UtilController <UITextFieldDelegate>
 {    
     int did;
     DishController *currentValues;

@@ -8,7 +8,6 @@
 
 #import "AppDelegate.h"
 #import "SettingsController.h"
-#import "SettingsdetailController.h"
 
 @implementation SettingsController
 
@@ -24,47 +23,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self setupNavBar];
-    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"background.png"]]];
+    [self buildNavBar:@"settings"];
+    [self.view setBackgroundColor:defaultBackground];
     [self buildSettingsData];
 	// Do any additional setup after loading the view.
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     NSLog(@"RELOAD!!!!");
     [super viewWillAppear:YES];
-    [self setupNavBar];
     [settings reloadData];
-}
-     
- - (void)setupNavBar
-{
-    UIImageView *bgImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navbar_settings.png"]];
-    [bgImageView setFrame:CGRectMake(0, 0, STD_WIDTH, 44)];
-    
-    CALayer *navLayer = self.navigationController.navigationBar.layer;
-    CGMutablePathRef path = CGPathCreateMutable();
-    CGPathAddRect(path, NULL, self.navigationController.navigationBar.bounds);
-    navLayer.shadowPath = path;
-    CGPathCloseSubpath(path);
-    CGPathRelease(path);
-    
-    navLayer.shadowColor = [UIColor darkGrayColor].CGColor;
-    navLayer.shadowOffset = CGSizeMake(0, 2);
-    navLayer.shadowRadius = 5;
-    navLayer.shadowOpacity = 0.9;
-    
-    // Default clipsToBounds is YES, will clip off the shadow, so we disable it.
-    self.navigationController.navigationBar.clipsToBounds = NO;
-    
-    [self.navigationController.navigationBar addSubview:bgImageView];
 }
 
 - (void)buildSettingsData
@@ -81,7 +50,8 @@
     [self.view addSubview:settings];
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView 
+{
     return 1;
 }
 
@@ -115,28 +85,22 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    AppDelegate *ad = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     if(indexPath.row == 0){
-        ad.settingsdetailController.section = @"notifications";
-        [ad.settingsdetailController.navigationItem setTitle:@"Notifications"];
+        AD.settingsdetailController.section = @"notifications";
+        [AD.settingsdetailController.navigationItem setTitle:@"Notifications"];
     } else {
-        ad.settingsdetailController.section = @"about";
-        [ad.settingsdetailController.navigationItem setTitle:@"About"];
+        AD.settingsdetailController.section = @"about";
+        [AD.settingsdetailController.navigationItem setTitle:@"About"];
     }
     
-    [ad.settingsdetailController.navigationItem setHidesBackButton:YES];
-    [self.navigationController pushViewController:ad.settingsdetailController animated:YES];
+    [AD.settingsdetailController.navigationItem setHidesBackButton:YES];
+    [self.navigationController pushViewController:AD.settingsdetailController animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath 
 { 
     return CELL_HEIGHT - 25;
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 @end

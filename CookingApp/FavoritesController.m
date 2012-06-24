@@ -7,9 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import <CoreData/CoreData.h>
 #import "FavoritesController.h"
-#import "DishesModel.h"
 
 @implementation FavoritesController
 

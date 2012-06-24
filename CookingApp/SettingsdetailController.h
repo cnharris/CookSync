@@ -7,19 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UtilController.h"
 
-@interface SettingsdetailController : UIViewController
+@interface SettingsdetailController : UtilController
 {
     NSString *section;
     IBOutlet UISwitch *onoff;
     IBOutlet UISlider *slider;
-    IBOutlet UIScrollView *canvas;
+    IBOutlet UIView *canvas;
 }
 
 @property (nonatomic, retain) IBOutlet NSString *section;
 @property (nonatomic, retain) IBOutlet UISlider *slider;
 @property (nonatomic, retain) IBOutlet UISwitch *onoff;
-@property (nonatomic, retain) IBOutlet UIScrollView *canvas;
+@property (nonatomic, retain) IBOutlet UIView *canvas;
 
 - (id)init:(NSString *)sectionName;
 

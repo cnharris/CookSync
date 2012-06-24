@@ -2,7 +2,7 @@
 //  SettingsdetailController.m
 //  CookingApp
 //
-//  Created by Christopher Harris on 4/25/12.
+//  Created by Christopnadia Harris on 4/25/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
@@ -22,15 +22,12 @@
     return self;
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
-}
-
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
+    [self buildNavBar:section];
+    [backButton addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     if(section == @"notifications"){
         [self buildNotifications];
     } else if(section == @"about"){
@@ -38,56 +35,11 @@
     }
 }
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewWillAppear:NO];
-    [self setupNavBar];
-}
-
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:FALSE];
     [self saveDefaults];
-}
-
-- (void)setupNavBar
-{
-    NSString *str = [NSString stringWithFormat:@"navbar_%@.png",section];
-    UIImageView *bgImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:str]];
-    [bgImageView setFrame:CGRectMake(0, 0, STD_WIDTH, 44)];
-    
-    CALayer *navLayer = self.navigationController.navigationBar.layer;
-    CGMutablePathRef path = CGPathCreateMutable();
-    CGPathAddRect(path, NULL, self.navigationController.navigationBar.bounds);
-    navLayer.shadowPath = path;
-    CGPathCloseSubpath(path);
-    CGPathRelease(path);
-    
-    navLayer.shadowColor = [UIColor darkGrayColor].CGColor;
-    navLayer.shadowOffset = CGSizeMake(0, 3);
-    navLayer.shadowRadius = 5;
-    navLayer.shadowOpacity = 1.0;
-    
-    // Default clipsToBounds is YES, will clip off the shadow, so we disable it.
-    self.navigationController.navigationBar.clipsToBounds = NO;
-    
-    [self.navigationController.navigationBar addSubview:bgImageView];
-    
-    UIImage *backIcon = [UIImage imageNamed:@"nav_back_left_icon.png"];
-    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [backButton setImage:backIcon forState:UIControlStateNormal];
-    backButton.showsTouchWhenHighlighted = YES;
-    backButton.frame = CGRectMake(0.0, 0.0, backIcon.size.width, backIcon.size.height);
-    [backButton addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    
-}
+}  
 
 - (IBAction)goBack:(id)sender
 {
@@ -97,10 +49,9 @@
 - (void)buildNotifications
 {
     [self.navigationItem setTitle:@"Notifications"];
-    canvas = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, STD_WIDTH, 416)];
-    [canvas setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"background.png"]]];
+    canvas = [self buildCanvasWithX:0 withY:0 withWidth:STD_WIDTH withHeight:416];
     [self.view addSubview:canvas];
-    [canvas setContentSize:CGSizeMake(STD_WIDTH, 450)];
+    //[canvas setContentSize:CGSizeMake(STD_WIDTH, 450)];
     [self retrieveOrBuildDefaults];
     [self buildSettingViews];
 }
@@ -112,9 +63,9 @@
     canvas = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, STD_WIDTH, 416)];
     [canvas setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"background.png"]]];
     [self.view addSubview:canvas];
-    [canvas setContentSize:CGSizeMake(STD_WIDTH, 450)];
+    //[canvas setContentSize:CGSizeMake(STD_WIDTH, 450)];
     
-    UIView *info = [[UIView alloc] initWithFrame:CGRectMake(10, 20, 300, 140)];
+    UIView *info = [[UIView alloc] initWithFrame:CGRectMake(10, 20, 300, 200)];
     [info setBackgroundColor:[UIColor whiteColor]];
     [[info layer] setCornerRadius:6.0];
     [[info layer] setBorderWidth:1];
@@ -140,16 +91,31 @@
     [designed setLineBreakMode:UILineBreakModeWordWrap];
     [designed setText:@"Designed by:"];
     
-    UILabel *her = [[UILabel alloc] initWithFrame:CGRectMake(10, 100, 280, 20)];
-    [her setTextAlignment:UITextAlignmentCenter];
-    [her setFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:16.0]];
-    [her setLineBreakMode:UILineBreakModeWordWrap];
-    [her setText:@"Nadia Sawir"];
+    UILabel *nadia = [[UILabel alloc] initWithFrame:CGRectMake(10, 100, 280, 20)];
+    [nadia setTextAlignment:UITextAlignmentCenter];
+    [nadia setFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:16.0]];
+    [nadia setLineBreakMode:UILineBreakModeWordWrap];
+    [nadia setText:@"Nadia Sawir"];
+    
+    UILabel *thanks = [[UILabel alloc] initWithFrame:CGRectMake(10, 140, 280, 15)];
+    [thanks setTextAlignment:UITextAlignmentCenter];
+    [thanks setTextColor:[UIColor darkGrayColor]];
+    [thanks setFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:14.0]];
+    [thanks setLineBreakMode:UILineBreakModeWordWrap];
+    [thanks setText:@"Special Thanks to:"];
+    
+    UILabel *jessica = [[UILabel alloc] initWithFrame:CGRectMake(10, 160, 280, 20)];
+    [jessica setTextAlignment:UITextAlignmentCenter];
+    [jessica setFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:16.0]];
+    [jessica setLineBreakMode:UILineBreakModeWordWrap];
+    [jessica setText:@"Jessica Matthews"];
     
     [info addSubview:created];
     [info addSubview:me];
     [info addSubview:designed];
-    [info addSubview:her];
+    [info addSubview:nadia];
+    [info addSubview:thanks];
+    [info addSubview:jessica];
     
     [canvas addSubview:info];
     
@@ -239,9 +205,10 @@
     
     onoff = [[UISwitch alloc] initWithFrame:CGRectMake(214, 12, 79, 27)];
     [onoff setOn:([[sett valueForKey:@"on"] isEqual:@"TRUE"]) ? TRUE : FALSE];
+    [onoff setOnTintColor:[UIColor colorWithRed:32.0/255 green:103.0/255 blue:130.0/255 alpha:1.0]];
     [onoff setTag:6];
     [warning addSubview:onoff];
-    [onoff addTarget:self action:@selector(switcherOnOff:) forControlEvents:UIControlEventValueChanged];
+    [onoff addTarget:self action:@selector(switcnadiaOnOff:) forControlEvents:UIControlEventValueChanged];
     
     slider = [[UISlider alloc] initWithFrame:CGRectMake(10, 80, 280, 23)];
     [slider setEnabled:TRUE];
@@ -285,11 +252,11 @@
     return warning;
 }
 
-- (IBAction)switcherOnOff:(id)sender {
-    UISwitch *switcher = (UISwitch *)sender;
+- (IBAction)switcnadiaOnOff:(id)sender {
+    UISwitch *switcnadia = (UISwitch *)sender;
     for(UILabel *view in [sender superview].subviews){
         if([NSClassFromString(@"UISlider") isEqual:[view class]] && [view tag] == 2){
-            if(switcher.isOn){
+            if(switcnadia.isOn){
                 [view setEnabled:TRUE];
             } else {
                 [view setEnabled:FALSE];
@@ -298,7 +265,7 @@
         }
         
         if([NSClassFromString(@"UILabel") isEqual:[view class]] && ([view tag] == 1 || [view tag] == 3)){
-            if(switcher.isOn){
+            if(switcnadia.isOn){
                 [view setTextColor:[UIColor blackColor]];
             } else {
                 [view setTextColor:[UIColor lightGrayColor]];    
@@ -322,11 +289,6 @@
             [view setText:label];
         }
     }
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 @end
