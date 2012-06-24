@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UtilController.h"
 
-@interface SettingsdetailController : UIViewController
+@interface SettingsdetailController : UtilController
 {
     NSString *section;
     IBOutlet UISwitch *onoff;

@@ -6,11 +6,8 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import <QuartzCore/QuartzCore.h>
 #import "AppDelegate.h"
 #import "NewdishController.h"
-#import "DishesModel.h"
-#import "FavoritesController.h"
 
 @implementation NewdishController
 
@@ -27,8 +24,6 @@
 @synthesize favoritesCheckbox;
 @synthesize saveButton;
 @synthesize minmins;
-@synthesize cancelBarButton;
-@synthesize favoritesBarButton;
 
 - (id)init
 {
@@ -38,9 +33,9 @@
 - (void)viewDidLoad 
 {
     [super viewDidLoad];
-    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"background.png"]]];
     
-    canvas = [[UIView alloc] initWithFrame:CGRectMake(10, 8, 300, 400)];
+    [self.view setBackgroundColor:defaultBackground];
+    canvas = [self buildCanvasWithX:10 withY:8 withWidth:300 withHeight:400];
     [canvas setBackgroundColor:[UIColor whiteColor]];
     [[canvas layer] setCornerRadius:6.0];
     [self.view addSubview:canvas];
@@ -56,18 +51,12 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self setupNavBar];
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:NO];
+    [super viewWillAppear:YES];
+    [self buildNavBar:@"dishes"];
+    self.navigationItem.leftBarButtonItem = cancelBarButton;
+    self.navigationItem.rightBarButtonItem = favoritesBarButton;
+    [cancelButton addTarget:self action:@selector(cancelDish:) forControlEvents:UIControlEventTouchUpInside];
+    [favoritesButton addTarget:self action:@selector(showFavorites:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -84,66 +73,25 @@
     [durationHoursSlider setValue:0];
 }
 
-- (void)setupNavBar
-{
-    UIImageView *bgImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"nav_addadish.png"]];
-    [bgImageView setFrame:CGRectMake(0, 0, STD_WIDTH, 44)];
-    
-    CALayer *navLayer = self.navigationController.navigationBar.layer;
-    CGMutablePathRef path = CGPathCreateMutable();
-    CGPathAddRect(path, NULL, self.navigationController.navigationBar.bounds);
-    navLayer.shadowPath = path;
-    CGPathCloseSubpath(path);
-    CGPathRelease(path);
-    
-    navLayer.shadowColor = [UIColor darkGrayColor].CGColor;
-    navLayer.shadowOffset = CGSizeMake(0, 3);
-    navLayer.shadowRadius = 5;
-    navLayer.shadowOpacity = 1.0;
-    
-    // Default clipsToBounds is YES, will clip off the shadow, so we disable it.
-    self.navigationController.navigationBar.clipsToBounds = NO;
-    [self.navigationController.navigationBar addSubview:bgImageView];
-    
-    UIImage *cancelIcon = [UIImage imageNamed:@"nav_cancel_left_icon.png"];
-    UIButton *cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [cancelButton setImage:cancelIcon forState:UIControlStateNormal];
-    cancelButton.showsTouchWhenHighlighted = YES;
-    cancelButton.frame = CGRectMake(0.0, 0.0, cancelIcon.size.width, cancelIcon.size.height);
-    [cancelButton addTarget:self action:@selector(cancelDish:) forControlEvents:UIControlEventTouchUpInside];
-    cancelBarButton = [[UIBarButtonItem alloc] initWithCustomView:cancelButton];
-    self.navigationItem.leftBarButtonItem = cancelBarButton;
-    
-    UIImage *favoritesIcon = [UIImage imageNamed:@"nav_favorites_icon.png"];
-    UIButton *favoritesButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [favoritesButton setImage:favoritesIcon forState:UIControlStateNormal];
-    favoritesButton.showsTouchWhenHighlighted = YES;
-    favoritesButton.frame = CGRectMake(0.0, 0.0, favoritesIcon.size.width, favoritesIcon.size.height);
-    [favoritesButton addTarget:self action:@selector(showFavorites:) forControlEvents:UIControlEventTouchUpInside];
-    favoritesBarButton = [[UIBarButtonItem alloc] initWithCustomView:favoritesButton];
-    self.navigationItem.rightBarButtonItem = favoritesBarButton;
-}
-
 - (IBAction)addDish:(id)sender
 {
-    AppDelegate *ad = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [self checkIfAddToFavorites];
-    
     currentValues = [[DishController alloc] init];
     [currentValues setTitle:[nameField text]];
     [currentValues setDuration:[durationField text]];
     [currentValues setIcon:@"dish_icon.png"];
-    [ad.configureTracker addObject:currentValues];
-    [ad.configureController.dishes setContentSize:CGSizeMake(STD_WIDTH, CELL_HEIGHT*[ad.configureTracker count])];
+    [AD.configureTracker addObject:currentValues];
+    [AD.configureController.dishes setContentSize:CGSizeMake(STD_WIDTH, CELL_HEIGHT*[AD.configureTracker count])];
     NSLog(@"Done");
+    
+    NSLog(@"CONFIG TRACKER: %d",[AD.configureTracker count]);
+    
     [self dismissModalViewControllerAnimated:YES];
 }
 
 - (IBAction)cancelDish:(id)sender
 {
-    AppDelegate *ad = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    
-    for(DishController *dish in ad.configureTracker){
+    for(DishController *dish in AD.configureTracker){
         NSLog(@"Dish: %@",[dish title]);
     }
     
@@ -321,8 +269,7 @@
 
 - (void)saveDishToFavorites
 {
-    AppDelegate *ad = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    NSManagedObjectContext *context = [ad managedObjectContext];
+    NSManagedObjectContext *context = [AD managedObjectContext];
     DishesModel *favoriteDish = [NSEntityDescription
                                    insertNewObjectForEntityForName:@"DishesModel"
                                    inManagedObjectContext:context];
@@ -459,12 +406,6 @@
         return [ad.pickerHours objectAtIndex:row];
     }
     return [ad.pickerMins objectAtIndex:row];
-}
-
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 @end

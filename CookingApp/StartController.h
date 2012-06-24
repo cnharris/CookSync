@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
+#import "UtilController.h"
+#import "StartCell.h"
 
-@interface StartController : UIViewController <UIScrollViewDelegate>
+@interface StartController : UtilController <UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate>
 {
     IBOutlet UIScrollView *canvas;
     IBOutlet UITableView *dishes;

@@ -50,6 +50,7 @@
 		2A768CFD15759D99000F8D06 /* tab_start@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A768CFB15759D99000F8D06 /* tab_start@2x.png */; };
 		2A768D011575A241000F8D06 /* tabbar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A768D001575A241000F8D06 /* tabbar@2x.png */; };
 		2A768D0815783BBA000F8D06 /* navbar_favorites@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A768D0715783BBA000F8D06 /* navbar_favorites@2x.png */; };
+		2A781F76159691BF00491ABD /* UtilController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A781F75159691BE00491ABD /* UtilController.m */; };
 		2A94A4E91544F05900766EAF /* marimba.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2A94A4E81544F05900766EAF /* marimba.mp3 */; };
 		2A94A4EB1544F07300766EAF /* bell.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2A94A4EA1544F07300766EAF /* bell.mp3 */; };
 		2A94A4EE1544F12500766EAF /* AudioController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A94A4ED1544F12500766EAF /* AudioController.m */; };
@@ -136,6 +137,8 @@
 		2A768CFB15759D99000F8D06 /* tab_start@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_start@2x.png"; sourceTree = "<group>"; };
 		2A768D001575A241000F8D06 /* tabbar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar@2x.png"; sourceTree = "<group>"; };
 		2A768D0715783BBA000F8D06 /* navbar_favorites@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navbar_favorites@2x.png"; sourceTree = "<group>"; };
+		2A781F74159691BE00491ABD /* UtilController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UtilController.h; sourceTree = "<group>"; };
+		2A781F75159691BE00491ABD /* UtilController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UtilController.m; sourceTree = "<group>"; };
 		2A94A4E81544F05900766EAF /* marimba.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = marimba.mp3; sourceTree = "<group>"; };
 		2A94A4EA1544F07300766EAF /* bell.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bell.mp3; sourceTree = "<group>"; };
 		2A94A4EC1544F12500766EAF /* AudioController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioController.h; sourceTree = "<group>"; };
@@ -395,6 +398,8 @@
 				2AD65691152A9CFE0045DC5F /* ConfigureController.m */,
 				2AA9E383155D773D007A271A /* DishController.h */,
 				2AA9E384155D773D007A271A /* DishController.m */,
+				2A781F74159691BE00491ABD /* UtilController.h */,
+				2A781F75159691BE00491ABD /* UtilController.m */,
 				2A516C14156F5CD70023F8A2 /* CoreData */,
 				2A516BEC156D5B0C0023F8A2 /* FavoritesController.h */,
 				2A516BED156D5B0C0023F8A2 /* FavoritesController.m */,
@@ -582,6 +587,7 @@
 				2A516BEE156D5B0D0023F8A2 /* FavoritesController.m in Sources */,
 				2A516C1C156F60600023F8A2 /* DishesModel.m in Sources */,
 				2AB3960D156F659F0051826F /* DishesModel.xcdatamodeld in Sources */,
+				2A781F76159691BF00491ABD /* UtilController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

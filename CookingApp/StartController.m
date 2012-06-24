@@ -6,11 +6,8 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#include <stdlib.h>
-#import <QuartzCore/QuartzCore.h>
 #import "AppDelegate.h"
 #import "StartController.h"
-#import "StartCell.h"
 
 @implementation StartController
 
@@ -44,17 +41,11 @@
 {
     [super viewDidLoad];   
     [self copyAllItemsFromConfigureTracker];
-    stopTime = nil;
-    stopTimers = nil;
-    prepTimers = nil;
-    canvas = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, STD_WIDTH, 416)];
-    canvas.contentSize = CGSizeMake(STD_WIDTH,self.view.frame.size.height-44);
-    [canvas setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"background.png"]]];
+    canvas = [self buildCanvasWithX:0 withY:0 withWidth:STD_WIDTH withHeight:416];
     [self.view addSubview:canvas];
     
-    [self setupNavBar];
+    [self buildNavBar:@"start"];
     [self setupStopTimeFieldAndButtonContainer];
-    //[self buildStopTime];
     [self buildStartStopButton];
     [self setupDishesAndNoDishes];
     [self buildDatePicker];
@@ -75,9 +66,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
-    AppDelegate *ad = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [self copyAllItemsFromConfigureTracker];
-    if([ad.startTracker count] > 0){
+    if([AD.startTracker count] > 0){
         [dishes setHidden:NO];
         [noDishes setHidden:YES];
         [startStop setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"start_starttimers_button.png"]]];
@@ -99,28 +89,6 @@
     [super viewDidAppear:YES];
     [picker setMinimumDate:[NSDate date]];
     [picker setMaximumDate:[stopTime dateByAddingTimeInterval:(60*60*24)]];
-}
-
-- (void)setupNavBar
-{
-    UIImageView *bgImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navbar_start.png"]];
-    [bgImageView setFrame:CGRectMake(0, 0, STD_WIDTH, 44)];
-    
-    CALayer *navLayer = self.navigationController.navigationBar.layer;
-    CGMutablePathRef path = CGPathCreateMutable();
-    CGPathAddRect(path, NULL, self.navigationController.navigationBar.bounds);
-    navLayer.shadowPath = path;
-    CGPathCloseSubpath(path);
-    CGPathRelease(path);
-    
-    navLayer.shadowColor = [UIColor darkGrayColor].CGColor;
-    navLayer.shadowOffset = CGSizeMake(0, 2);
-    navLayer.shadowRadius = 5;
-    navLayer.shadowOpacity = 0.9;
-    
-    // Default clipsToBounds is YES, will clip off the shadow, so we disable it.
-    self.navigationController.navigationBar.clipsToBounds = NO;
-    [self.navigationController.navigationBar addSubview:bgImageView];
 }
 
 - (void)setupStopTimeFieldAndButtonContainer
@@ -179,14 +147,12 @@
 
 - (void)copyAllItemsFromConfigureTracker
 {
-    AppDelegate *ad = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    ad.startTracker = [ad.configureTracker mutableCopy];
+    AD.startTracker = [AD.configureTracker mutableCopy];
 }
 
 - (void)checkForPresenceOfDishes
 {
-    AppDelegate *ad = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    if([ad.startTracker count] == 0){
+    if([AD.startTracker count] == 0){
         [startStop setUserInteractionEnabled:NO];
         [stopTimeField setUserInteractionEnabled:NO];
         
@@ -207,6 +173,7 @@
     [overlay setBackgroundColor:[UIColor blackColor]];
     [[overlay layer] setOpacity:0.4];
     [[overlay layer] setZPosition:2];
+    
     picker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, 156, STD_WIDTH, 216)];
     [picker setHidden:YES];
     [[picker layer] setZPosition:3];
@@ -217,11 +184,9 @@
 
 - (void)startStopTimers:(id)sender
 {
-    AppDelegate *ad = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     UIButton *senderButton = (UIButton *)sender;
-    
-    ad.timerRunning = NO;
-    ad.allDone = NO;
+    AD.timerRunning = NO;
+    AD.allDone = NO;
     [self enableDishesSettingsTabs];
     
     if([senderButton tag] == 0){
@@ -231,7 +196,7 @@
             [self stopAllTimers];
             [self setStartButtonStart];
         } else {
-            ad.timerRunning = YES;
+            AD.timerRunning = YES;
             [self buildNotifications];
             [self setStartButtonStop];
             [self disableDishesSettingsTabs];
@@ -274,24 +239,6 @@
     return 300;
 }
 
-- (void)enableDishesSettingsTabs
-{
-    UITabBar *tabBar = self.tabBarController.tabBar;
-    UITabBarItem *dishesTab = [tabBar.items objectAtIndex:0];
-    UITabBarItem *settingsTab = [tabBar.items objectAtIndex:2];
-    [dishesTab setEnabled:YES];
-    [settingsTab setEnabled:YES];
-}
-
-- (void)disableDishesSettingsTabs
-{
-    UITabBar *tabBar = self.tabBarController.tabBar;
-    UITabBarItem *dishesTab = [tabBar.items objectAtIndex:0];
-    UITabBarItem *settingsTab = [tabBar.items objectAtIndex:2];
-    [dishesTab setEnabled:NO];
-    [settingsTab setEnabled:NO];
-}
-
 - (void)buildAlertAndStopExecution
 {
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
@@ -304,12 +251,11 @@
 //Return false is not enough time to from prepTime to stopTime
 - (BOOL)checkTimeValidity
 {
-    AppDelegate *ad = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     NSDate *stopTimeMinusStartTime = nil;
     NSDate *stopTimeMinusStartTimeAndPrepTime = nil;
     NSDate *prepTime = nil;
     
-    for(DishController *cell in ad.startTracker){
+    for(DishController *cell in AD.startTracker){
         
         stopTimeMinusStartTime = [self getNsdateFromTimeMinusDuration:stopTime withStringDuration:[cell duration]];
         stopTimeMinusStartTimeAndPrepTime = [stopTimeMinusStartTime dateByAddingTimeInterval:-[self prepTimeSeconds]];
@@ -330,7 +276,6 @@
 
 - (void)stopAllTimers
 {
-    AppDelegate *ad = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     for (id obj in prepTimers){
         if(obj != nil){
             [obj invalidate];
@@ -343,7 +288,7 @@
         }
     }
     
-    for(DishController *cell in ad.startTracker){
+    for(DishController *cell in AD.startTracker){
         [cell setTimeLeftAction:@""];
         [cell setTimeLeft:@""];
     }
@@ -351,12 +296,10 @@
     stopTimers = nil;
     prepTimers = nil;
     [dishes reloadData];
-    
 }
 
 - (void)buildAndStartTimers
 {
-    AppDelegate *ad = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     startTimeButtonPressed = [[NSDate alloc] init];
     prepTimers = [[NSMutableArray alloc] init];
     stopTimers = [[NSMutableArray alloc] init];
@@ -364,7 +307,7 @@
     NSTimer *stopTimer = nil;
     int count = 0;
     
-    for(DishController *cell in ad.startTracker){
+    for(DishController *cell in AD.startTracker){
         NSDate *prepTimeStart = [NSDate date];
         NSDate *startTime = [self getNsdateFromTimeMinusDuration:stopTime withStringDuration:[cell duration]];
         NSDictionary *userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
@@ -391,8 +334,7 @@
 
 - (void)buildNotifications
 {
-    AppDelegate *ad = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    for(DishController *cell in ad.startTracker){
+    for(DishController *cell in AD.startTracker){
         //Reminder prepTime
         NSDate *startTime = [self getNsdateFromTimeMinusDuration:stopTime withStringDuration:[cell duration]];
         [self aboutToStartNotification:startTime withTitle:[cell title]];
@@ -415,7 +357,7 @@
     NSDictionary *starting = [defaults objectForKey:@"startingNotification"];
     NSString *isOn = [starting objectForKey:@"on"];
     if([isOn compare:@"TRUE"] == 0){
-        int seconds = [[starting objectForKey:@"value"] integerValue] * 30;
+        int seconds = [[starting objectForKey:@"value"] integerValue] * NOTIFICATION_INTERVAL;
         NSString *secondsStr = [self convertSecondsToDateTimeString:seconds];
         NSString *prepReminder = [NSString stringWithFormat:@"Start %@ in %@",dishTitle,secondsStr];
         [self setupNotification:[datetime dateByAddingTimeInterval:-(seconds)] withMessage:prepReminder];
@@ -480,7 +422,6 @@
         notifyAlarm.alertBody = msg;
         [[UIApplication sharedApplication] scheduleLocalNotification:notifyAlarm];
     }
-    
 }
 
 - (BOOL)dateTimeHasPassed:(NSDate *)date
@@ -503,8 +444,7 @@
         return;
     }
 
-    AppDelegate *ad = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    DishController *cell = [ad.startTracker objectAtIndex:[[timer.userInfo objectForKey:@"tag"] integerValue]];
+    DishController *cell = [AD.startTracker objectAtIndex:[[timer.userInfo objectForKey:@"tag"] integerValue]];
     [cell setTimeLeftAction:@"Starts in"];
     [cell setTimeLeft:[NSString stringWithFormat:@"%@",[self formattedTime:timeLeftHash]]];
     [dishes reloadData];
@@ -512,9 +452,8 @@
 
 - (void)stopTimeCallback:(NSTimer *)timer
 {
-    AppDelegate *ad = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     NSDictionary *timeLeftHash = [self differenceBetweenTwoNSDates:[NSDate date] withDate:stopTime];
-    DishController *cell = [ad.startTracker objectAtIndex:[[timer.userInfo objectForKey:@"tag"] integerValue]];
+    DishController *cell = [AD.startTracker objectAtIndex:[[timer.userInfo objectForKey:@"tag"] integerValue]];
     int hours = [[timeLeftHash objectForKey:@"hours"] integerValue];
     int mins = [[timeLeftHash objectForKey:@"minutes"] integerValue];
     int secs = [[timeLeftHash objectForKey:@"seconds"] integerValue];
@@ -524,7 +463,7 @@
     
     //SETTING    
     if(hours <= 0 && mins <= 0 && secs <= 0){
-        ad.allDone = YES;
+        AD.allDone = YES;
         [timer invalidate];
         [self stopAllTimers];
         [dishes reloadData];
@@ -557,16 +496,14 @@
 
 - (void)warningSound
 {
-    AppDelegate *ad = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    if(![ad.audioController.bellPlayer isPlaying]){
-        [ad.audioController playBell];
+    if(![AD.audioController.bellPlayer isPlaying]){
+        [AD.audioController playBell];
     }
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    AppDelegate *ad = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [ad.audioController stopMarimba];
+    [AD.audioController stopMarimba];
 }
 
 - (IBAction)pickerChanged:(id)sender
@@ -597,11 +534,6 @@
     [picker setHidden:NO];
     [self setHoursMinsAmpmBoxes:[picker date]];
     
-    UIImage *doneIcon = [UIImage imageNamed:@"nav_done_icon.png"];
-    UIButton *doneButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [doneButton setImage:doneIcon forState:UIControlStateNormal];
-    doneButton.showsTouchWhenHighlighted = YES;
-    doneButton.frame = CGRectMake(0.0, 0.0, doneIcon.size.width, doneIcon.size.height);
     [doneButton addTarget:self action:@selector(hidePicker:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:doneButton];
 }
@@ -632,10 +564,9 @@
 
 - (NSDictionary *)findAndSetLargestDuration
 {
-    AppDelegate *ad = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     NSDictionary *duration = NULL;
     NSDictionary *largest = NULL;
-    for(DishController *cell in ad.startTracker){
+    for(DishController *cell in AD.startTracker){
         duration = [self parseDuration:[cell duration]];
         largest = [self compareHashTimes:largest withTime:duration];
     }
@@ -781,8 +712,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    AppDelegate *ad = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    DishController *data = [ad.startTracker objectAtIndex:indexPath.row];
+    DishController *data = [AD.startTracker objectAtIndex:indexPath.row];
     NSInteger hours = 0,mins = 0;
     NSDictionary *dataHsh = NULL;
     NSDate *date;    
@@ -800,7 +730,7 @@
     [[cell timeLeftAction] setText:[data timeLeftAction]];
     [[cell timeLeft] setText:[data timeLeft]];
     
-    if(ad.allDone){
+    if(AD.allDone){
         [[cell doneIcon] setHidden:NO];
         [startStop setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"start_starttimers_button.png"]]];
         [startStop setTag:0];
@@ -855,12 +785,6 @@
     [noDishes setNumberOfLines:2];
     [canvas addSubview:noDishes];
     [noDishes setHidden:YES];
-}
-
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 @end
