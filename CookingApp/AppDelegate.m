@@ -104,7 +104,7 @@
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
     [[[UIAlertView alloc] initWithTitle:@"Reminder" message:[notification alertBody] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
-    [self.audioController playBell];
+    self.allDone ? [self.audioController playBoxing] : [self.audioController playBell];
 }
 							
 - (void)applicationWillResignActive:(UIApplication *)application

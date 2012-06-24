@@ -243,7 +243,7 @@
 {
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
     NSString *msg = @"Oops, all your dishes will not be ready by this time. Please select a later time.";
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:msg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"End Time Error" message:msg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
     [self.view addSubview:alert];
     [alert show];
 }
@@ -501,9 +501,11 @@
     }
 }
 
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+- (void)doneSound
 {
-    [AD.audioController stopMarimba];
+    if(![AD.audioController.boxingPlayer isPlaying]){
+        [AD.audioController playBoxing];
+    }
 }
 
 - (IBAction)pickerChanged:(id)sender

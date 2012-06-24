@@ -11,7 +11,7 @@
 @implementation AudioController
 
 @synthesize bellPlayer;
-@synthesize marimbaPlayer;
+@synthesize boxingPlayer;
 
 - (id)init
 {
@@ -22,14 +22,14 @@
 - (void)setupSounds
 {
     NSURL *bellUrl = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/bell.mp3", [[NSBundle mainBundle] resourcePath]]];
-    NSURL *marimbaUrl = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/marimba.mp3", [[NSBundle mainBundle] resourcePath]]];
+    NSURL *boxingUrl = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/boxingbell.mp3", [[NSBundle mainBundle] resourcePath]]];
     
 	NSError *berror;
-    NSError *merror;
+    NSError *bxerror;
 	bellPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:bellUrl error:&berror];
-    marimbaPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:marimbaUrl error:&merror];
+    boxingPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:boxingUrl error:&bxerror];
 	bellPlayer.numberOfLoops = 0;
-    marimbaPlayer.numberOfLoops = 0;
+    boxingPlayer.numberOfLoops = 2;
     
 	if (bellPlayer == nil){
 		NSLog(@"%@",[berror description]);
@@ -37,10 +37,10 @@
 		[bellPlayer prepareToPlay];
     }
     
-    if (marimbaPlayer == nil){
-		NSLog(@"%@",[merror description]);
+    if (boxingPlayer == nil){
+		NSLog(@"%@",[bxerror description]);
     } else {
-		[marimbaPlayer prepareToPlay];
+		[boxingPlayer prepareToPlay];
     }
 }
 
@@ -49,9 +49,9 @@
     [bellPlayer play];
 }
 
-- (void)playMarimba
+- (void)playBoxing
 {
-    [marimbaPlayer play];
+    [boxingPlayer play];
 }
 
 - (void)stopBell
@@ -59,11 +59,9 @@
     [bellPlayer stop];
 }
 
-- (void)stopMarimba
+- (void)stopBoxing
 {
-    [marimbaPlayer stop];
+    [boxingPlayer stop];
 }
-
-
 
 @end

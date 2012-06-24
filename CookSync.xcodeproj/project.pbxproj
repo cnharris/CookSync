@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2A1AA68E1596E4F900169CC2 /* bell.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2A1AA68C1596E4F900169CC2 /* bell.mp3 */; };
+		2A1AA68F1596E4F900169CC2 /* boxingbell.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2A1AA68D1596E4F900169CC2 /* boxingbell.mp3 */; };
 		2A293456156428C700C8F5AD /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A293455156428C700C8F5AD /* CoreData.framework */; };
 		2A298735157AA38800871374 /* start_doneIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A298734157AA38800871374 /* start_doneIcon@2x.png */; };
 		2A298738157AA56700871374 /* start_resettimers_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A298737157AA56700871374 /* start_resettimers_button@2x.png */; };
@@ -51,8 +53,6 @@
 		2A768D011575A241000F8D06 /* tabbar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A768D001575A241000F8D06 /* tabbar@2x.png */; };
 		2A768D0815783BBA000F8D06 /* navbar_favorites@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A768D0715783BBA000F8D06 /* navbar_favorites@2x.png */; };
 		2A781F76159691BF00491ABD /* UtilController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A781F75159691BE00491ABD /* UtilController.m */; };
-		2A94A4E91544F05900766EAF /* marimba.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2A94A4E81544F05900766EAF /* marimba.mp3 */; };
-		2A94A4EB1544F07300766EAF /* bell.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2A94A4EA1544F07300766EAF /* bell.mp3 */; };
 		2A94A4EE1544F12500766EAF /* AudioController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A94A4ED1544F12500766EAF /* AudioController.m */; };
 		2A94A4F01544F1C000766EAF /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A94A4EF1544F1C000766EAF /* AVFoundation.framework */; };
 		2A9C1FA4159427F700541CDB /* CookSync_icon_57.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A9C1FA2159427F700541CDB /* CookSync_icon_57.png */; };
@@ -92,6 +92,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2A1AA68C1596E4F900169CC2 /* bell.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = bell.mp3; path = audio/bell.mp3; sourceTree = "<group>"; };
+		2A1AA68D1596E4F900169CC2 /* boxingbell.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = boxingbell.mp3; path = audio/boxingbell.mp3; sourceTree = "<group>"; };
 		2A293455156428C700C8F5AD /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		2A298734157AA38800871374 /* start_doneIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "start_doneIcon@2x.png"; sourceTree = "<group>"; };
 		2A298737157AA56700871374 /* start_resettimers_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "start_resettimers_button@2x.png"; sourceTree = "<group>"; };
@@ -139,8 +141,6 @@
 		2A768D0715783BBA000F8D06 /* navbar_favorites@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navbar_favorites@2x.png"; sourceTree = "<group>"; };
 		2A781F74159691BE00491ABD /* UtilController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UtilController.h; sourceTree = "<group>"; };
 		2A781F75159691BE00491ABD /* UtilController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UtilController.m; sourceTree = "<group>"; };
-		2A94A4E81544F05900766EAF /* marimba.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = marimba.mp3; sourceTree = "<group>"; };
-		2A94A4EA1544F07300766EAF /* bell.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bell.mp3; sourceTree = "<group>"; };
 		2A94A4EC1544F12500766EAF /* AudioController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioController.h; sourceTree = "<group>"; };
 		2A94A4ED1544F12500766EAF /* AudioController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioController.m; sourceTree = "<group>"; };
 		2A94A4EF1544F1C000766EAF /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -209,16 +209,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2A516BFC156EB3760023F8A2 /* images */ = {
+		2A1AA6901596E60200169CC2 /* shared */ = {
 			isa = PBXGroup;
 			children = (
 				2A5457E5157AEC2A00B7D952 /* slider_track@2x.png */,
+				2A703FB71572E21B00F4F496 /* background@2x.png */,
+				2A703FBB1572E78400F4F496 /* slider_knob@2x.png */,
+			);
+			name = shared;
+			sourceTree = "<group>";
+		};
+		2A516BFC156EB3760023F8A2 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				2A1AA6901596E60200169CC2 /* shared */,
 				2A768D0615783BBA000F8D06 /* favorites */,
 				2A768CEB1574304F000F8D06 /* settings */,
 				2A768CB11573408C000F8D06 /* tabs */,
 				2A703FBD1572EBCB00F4F496 /* start */,
-				2A703FB71572E21B00F4F496 /* background@2x.png */,
-				2A703FBB1572E78400F4F496 /* slider_knob@2x.png */,
 				2A703FB61571C04800F4F496 /* nav */,
 				2AB3961115703E4C0051826F /* newdish */,
 				2A516C11156F11300023F8A2 /* welcome */,
@@ -333,8 +341,8 @@
 		2A94A4E71544F03900766EAF /* audio */ = {
 			isa = PBXGroup;
 			children = (
-				2A94A4EA1544F07300766EAF /* bell.mp3 */,
-				2A94A4E81544F05900766EAF /* marimba.mp3 */,
+				2A1AA68C1596E4F900169CC2 /* bell.mp3 */,
+				2A1AA68D1596E4F900169CC2 /* boxingbell.mp3 */,
 			);
 			name = audio;
 			sourceTree = "<group>";
@@ -503,8 +511,6 @@
 			files = (
 				2AD65672152A9CC70045DC5F /* InfoPlist.strings in Resources */,
 				2AD6567B152A9CC80045DC5F /* MainStoryboard.storyboard in Resources */,
-				2A94A4E91544F05900766EAF /* marimba.mp3 in Resources */,
-				2A94A4EB1544F07300766EAF /* bell.mp3 in Resources */,
 				2A516C09156EE8240023F8A2 /* dish_icon@2x.png in Resources */,
 				2A516C0A156EE8240023F8A2 /* edit_icon@2x.png in Resources */,
 				2A516C0B156EE8240023F8A2 /* navbar_dishes@2x.png in Resources */,
@@ -563,6 +569,8 @@
 				2AC65CFB1591884D00C165AE /* Default@2x.png in Resources */,
 				2A9C1FA4159427F700541CDB /* CookSync_icon_57.png in Resources */,
 				2A9C1FA5159427F700541CDB /* CookSync_icon_114.png in Resources */,
+				2A1AA68E1596E4F900169CC2 /* bell.mp3 in Resources */,
+				2A1AA68F1596E4F900169CC2 /* boxingbell.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

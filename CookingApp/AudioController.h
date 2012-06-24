@@ -12,16 +12,16 @@
 @interface AudioController : NSObject
 {
     AVAudioPlayer *bellPlayer;
-    AVAudioPlayer *marimbaPlayer;
+    AVAudioPlayer *boxingPlayer;
 }
 
 @property (nonatomic, retain) AVAudioPlayer *bellPlayer;
-@property (nonatomic, retain) AVAudioPlayer *marimbaPlayer;
+@property (nonatomic, retain) AVAudioPlayer *boxingPlayer;
 
 - (void)setupSounds;
 - (void)playBell;
-- (void)playMarimba;
+- (void)playBoxing;
 - (void)stopBell;
-- (void)stopMarimba;
+- (void)stopBoxing;
 
 @end
