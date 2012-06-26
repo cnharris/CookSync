@@ -24,6 +24,7 @@
 #define STD_HEIGHT 460
 #define CELL_HEIGHT 70
 #define NOTIFICATION_INTERVAL 30
+#define MAX_DISHES 5
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 {

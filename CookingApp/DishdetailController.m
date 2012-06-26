@@ -197,7 +197,7 @@
     if(!durationHoursSlider){
         durationHoursSlider = [[UISlider alloc] initWithFrame:CGRectMake(10, 250, 280, 20)];
         [durationHoursSlider setMinimumValue:0];
-        [durationHoursSlider setMaximumValue:23];
+        [durationHoursSlider setMaximumValue:15];
         [durationHoursSlider setValue:[[hoursMins objectForKey:@"hours"] integerValue]];
         [durationHoursSlider setMinimumTrackImage:[UIImage imageNamed:@"slider_track.png"] forState:UIControlStateNormal];
         [canvas addSubview:durationHoursSlider];
@@ -217,7 +217,7 @@
         [canvas addSubview:label];
         
         UILabel *maxhours = [[UILabel alloc] initWithFrame:CGRectMake(270, 238, 20, 12)];
-        [maxhours setText:@"23"];
+        [maxhours setText:@"15"];
         [maxhours setBackgroundColor:[UIColor clearColor]];
         [maxhours setFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:14.0f]];
         
@@ -281,9 +281,9 @@
     }
     
     if(hours == 1){
-        [durationField setText:[[NSString alloc] initWithFormat:@"%d hr, %d min", hours,mins]];
+        [durationField setText:[[NSString alloc] initWithFormat:@"%d hours, %d min", hours,mins]];
     } else {
-        [durationField setText:[[NSString alloc] initWithFormat:@"%d hr, %d min", hours,mins]];
+        [durationField setText:[[NSString alloc] initWithFormat:@"%d hours, %d min", hours,mins]];
     }
 }
 

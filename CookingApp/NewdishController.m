@@ -33,7 +33,6 @@
 - (void)viewDidLoad 
 {
     [super viewDidLoad];
-    
     [self.view setBackgroundColor:defaultBackground];
     canvas = [self buildCanvasWithX:10 withY:8 withWidth:300 withHeight:400];
     [canvas setBackgroundColor:[UIColor whiteColor]];
@@ -44,9 +43,9 @@
     [self buildDurationField];
     [self buildDurationHoursSlider];
     [self buildDurationMinutesSlider];
-    [self buildFavoritesOption];
     [self buildSaveButton];
-	// Do any additional setup after loading the view.
+    //[self buildFavoritesOption];
+    // Do any additional setup after loading the view.
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -54,9 +53,9 @@
     [super viewWillAppear:YES];
     [self buildNavBar:@"dishes"];
     self.navigationItem.leftBarButtonItem = cancelBarButton;
-    self.navigationItem.rightBarButtonItem = favoritesBarButton;
     [cancelButton addTarget:self action:@selector(cancelDish:) forControlEvents:UIControlEventTouchUpInside];
-    [favoritesButton addTarget:self action:@selector(showFavorites:) forControlEvents:UIControlEventTouchUpInside];
+    //self.navigationItem.rightBarButtonItem = favoritesBarButton;
+    //[favoritesButton addTarget:self action:@selector(showFavorites:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -68,33 +67,25 @@
 - (void)resetFields
 {
     [nameField setText:@"Enter Dish Name"];
-    [durationField setText:@"0 hour, 15 min"];
+    [durationField setText:@"0 hours, 15 min"];
     [durationMinutesSlider setValue:15];
     [durationHoursSlider setValue:0];
 }
 
 - (IBAction)addDish:(id)sender
 {
-    [self checkIfAddToFavorites];
+    //[self checkIfAddToFavorites];
     currentValues = [[DishController alloc] init];
     [currentValues setTitle:[nameField text]];
     [currentValues setDuration:[durationField text]];
     [currentValues setIcon:@"dish_icon.png"];
     [AD.configureTracker addObject:currentValues];
     [AD.configureController.dishes setContentSize:CGSizeMake(STD_WIDTH, CELL_HEIGHT*[AD.configureTracker count])];
-    NSLog(@"Done");
-    
-    NSLog(@"CONFIG TRACKER: %d",[AD.configureTracker count]);
-    
     [self dismissModalViewControllerAnimated:YES];
 }
 
 - (IBAction)cancelDish:(id)sender
 {
-    for(DishController *dish in AD.configureTracker){
-        NSLog(@"Dish: %@",[dish title]);
-    }
-    
     [self dismissModalViewControllerAnimated:YES];
 }
 
@@ -155,7 +146,7 @@
         [[durationField layer] setCornerRadius:6.0];
         [canvas addSubview:durationField];
     }
-    durationField.text = @"0 hour, 15 min";
+    durationField.text = @"0 hours, 15 min";
 }
 
 - (void)buildDurationMinutesSlider
@@ -200,7 +191,7 @@
     if(!durationHoursSlider){
         durationHoursSlider = [[UISlider alloc] initWithFrame:CGRectMake(10, 250, 280, 20)];
         [durationHoursSlider setMinimumValue:0];
-        [durationHoursSlider setMaximumValue:23];
+        [durationHoursSlider setMaximumValue:15];
         [durationHoursSlider setThumbImage:[UIImage imageNamed:@"slider_knob.png"] forState:UIControlStateNormal];
         [durationHoursSlider setValue:[[hoursMins objectForKey:@"hours"] integerValue]];
         [durationHoursSlider setMinimumTrackImage:[UIImage imageNamed:@"slider_track.png"] forState:UIControlStateNormal];
@@ -221,7 +212,7 @@
         [canvas addSubview:label];
         
         UILabel *maxhours = [[UILabel alloc] initWithFrame:CGRectMake(270, 238, 20, 12)];
-        [maxhours setText:@"23"];
+        [maxhours setText:@"15"];
         [maxhours setBackgroundColor:[UIColor clearColor]];
         [maxhours setFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:14.0f]];
         
@@ -360,7 +351,7 @@
         [minmins setText:@"0"];
     }
     
-    [durationField setText:[[NSString alloc] initWithFormat:@"%d hour, %d min", hours,mins]];
+    [durationField setText:[[NSString alloc] initWithFormat:@"%d hours, %d min", hours,mins]];
 }
 
 - (IBAction) sliderMinutesChanged:(id)sender 
@@ -368,16 +359,7 @@
     UISlider *slider = (UISlider *)sender;
     int hours = durationHoursSlider.value;
     int mins = (int)(slider.value + 0.5f);
-    [durationField setText:[[NSString alloc] initWithFormat:@"%d hour, %d min", hours,mins]];
-}
-
-- (void)pickerView:(UIPickerView *)pV didSelectRow:(NSInteger)row inComponent:(NSInteger)component
-{
-    if(component == 1){
-        NSLog(@"Hour");
-    } else if(component == 2){
-        NSLog(@"Min");
-    }
+    [durationField setText:[[NSString alloc] initWithFormat:@"%d hours, %d min", hours,mins]];
 }
 
 - (NSInteger)rowHeightForComponent:(UIPickerView *)pickerView

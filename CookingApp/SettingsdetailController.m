@@ -213,7 +213,7 @@
     slider = [[UISlider alloc] initWithFrame:CGRectMake(10, 80, 280, 23)];
     [slider setEnabled:TRUE];
     [slider setMinimumValue:1];
-    [slider setMaximumValue:40];
+    [slider setMaximumValue:30];
     [slider setThumbImage:[UIImage imageNamed:@"slider_knob.png"] forState:UIControlStateNormal];
     [slider setMinimumTrackImage:[UIImage imageNamed:@"slider_track.png"] forState:UIControlStateNormal];
     [slider setValue:[[sett valueForKey:@"value"] floatValue]];
@@ -228,7 +228,7 @@
     [min setTag:3];
     [warning addSubview:min];
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(125, 58, 50, 22)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(135, 58, 50, 22)];
     [label setText:[sett valueForKey:@"label"]];
     [label setBackgroundColor:[UIColor clearColor]];
     [label setFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:15.0f]];
@@ -236,7 +236,7 @@
     [warning addSubview:label];
     
     UILabel *max = [[UILabel alloc] initWithFrame:CGRectMake(255, 65, 40, 12)];
-    [max setText:@"20:00"];
+    [max setText:@"15:00"];
     [max setBackgroundColor:[UIColor clearColor]];
     [max setFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:14.0f]];
     [max setTag:3];

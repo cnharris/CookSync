@@ -203,6 +203,11 @@
 	// Do any additional setup after loading the view, typically from a nib.
 }
 
+- (BOOL)checkIfTimerIsRunning
+{
+    return ![AD timerRunning];
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);

@@ -23,7 +23,6 @@
     IBOutlet UISlider *durationMinutesSlider;
     IBOutlet UIButton *saveButton;
     IBOutlet UILabel *minmins;
-    
     NSManagedObjectContext *managedObjectContext;
 }
 

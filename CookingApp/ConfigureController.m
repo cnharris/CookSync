@@ -42,6 +42,7 @@
 {
     NSLog(@"Appear");
     [super viewWillAppear:NO];
+    [self showOrHidePlusButton];
     [self toggleWelcomeAndDishViews];
     [self resizeDishesTable];
     [self enableNavigationBarButtons];
@@ -67,14 +68,14 @@
     if([AD.configureTracker count] == 0){
         [welcomeView setAlpha:0.0];
         [welcomeView setHidden:NO];
-        [UIView animateWithDuration:0.30 animations:^{
+        [UIView animateWithDuration:0.20 animations:^{
             welcomeView.alpha = 1.0;
         }];
         [dishes setHidden:YES];
         [self.navigationController setNavigationBarHidden:YES];
     } else {
         [welcomeView setAlpha:1.0];
-        [UIView animateWithDuration:0.30 animations:^{
+        [UIView animateWithDuration:0.20 animations:^{
             welcomeView.alpha = 0.0;
         }];
         [self.navigationController setNavigationBarHidden:NO];
@@ -122,6 +123,11 @@
     
     [welcomeView setHidden:YES];
     [self.view addSubview:welcomeView];
+}
+
+- (void)showOrHidePlusButton
+{
+    [plusButton setHidden:([AD.configureTracker count] >= MAX_DISHES)];
 }
 
 - (UIImageView *)dishesBackground
@@ -182,9 +188,10 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) 
     {
         [AD.configureTracker removeObjectAtIndex:indexPath.row];
-        [dishes deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [dishes deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
         [dishes setContentSize:CGSizeMake(STD_WIDTH, dishes.contentSize.height - CELL_HEIGHT)];
         [self toggleWelcomeAndDishViews];
+        [self showOrHidePlusButton];
     }
 }
 
