@@ -116,7 +116,7 @@
     [welcomeView setBackgroundColor:defaultBackground];
     [welcomeView addSubview:welcome];
     
-    UIButton *plusIcon = [[UIButton alloc] initWithFrame:CGRectMake(123, 280, 70, 65)];
+    UIButton *plusIcon = [[UIButton alloc] initWithFrame:CGRectMake(125, 295, 70, 65)];
     [plusIcon setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"welcome_plus_icon.png"]]];
     [plusIcon addTarget:self action:@selector(showAddDishView:) forControlEvents:UIControlEventTouchUpInside];
     [welcomeView addSubview:plusIcon];
