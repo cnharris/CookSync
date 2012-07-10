@@ -21,10 +21,12 @@
 #define AD ((AppDelegate *)[[UIApplication sharedApplication] delegate])
 #define BUFFER_PREP 0.1
 #define STD_WIDTH 320
-#define STD_HEIGHT 460
+#define STD_HEIGHT 480
 #define CELL_HEIGHT 70
 #define NOTIFICATION_INTERVAL 30
 #define MAX_DISHES 5
+#define TABBAR_WIDTH 640
+#define TABBAR_HEIGHT 56
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 {

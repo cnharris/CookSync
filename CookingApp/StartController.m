@@ -41,7 +41,7 @@
 {
     [super viewDidLoad];   
     [self copyAllItemsFromConfigureTracker];
-    canvas = [self buildCanvasWithX:0 withY:0 withWidth:STD_WIDTH withHeight:416];
+    canvas = [self buildCanvasWithX:0 withY:0 withWidth:STD_WIDTH withHeight:460];
     [self.view addSubview:canvas];
     
     [self buildNavBar:@"start"];
@@ -187,7 +187,7 @@
     UIButton *senderButton = (UIButton *)sender;
     AD.timerRunning = NO;
     AD.allDone = NO;
-    [self enableDishesSettingsTabs];
+    [self showTabBarAndExtendTableView:dishes]; 
     
     if([senderButton tag] == 0){
         [self buildAndStartTimers];
@@ -199,7 +199,7 @@
             AD.timerRunning = YES;
             [self buildNotifications];
             [self setStartButtonStop];
-            [self disableDishesSettingsTabs];
+            [self hideTabBarAndExtendTableView:dishes];
         }
     } else if([senderButton tag] == 1) {
         [self stopAllTimers];
@@ -668,9 +668,8 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    AppDelegate *ad = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [dishes setFrame:CGRectMake(0, 160, [UIScreen mainScreen].bounds.size.width, self.view.frame.size.height-160)];
-    return ad.startTracker.count;
+    [dishes setFrame:CGRectMake(0, 160, self.view.bounds.size.width, self.view.frame.size.height-160)];
+    return AD.startTracker.count;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -768,14 +767,8 @@
 
 - (void)setupDishesAndNoDishes
 {
-    dishCoords dishAttrs;
-    dishAttrs.x = 0;
-    dishAttrs.y = 0;
-    dishAttrs.w = STD_WIDTH;
-    dishAttrs.h = 100;
-    
-    dishes = [[UITableView alloc] initWithFrame:CGRectMake(0, 140, [UIScreen mainScreen].bounds.size.width, self.view.frame.size.height) style:UITableViewCellStyleDefault];
-    [dishes setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"background.png"]]];
+    dishes = [[UITableView alloc] initWithFrame:CGRectMake(0, 140, self.view.bounds.size.width, self.view.frame.size.height) style:UITableViewCellStyleDefault];
+    [dishes setBackgroundColor:defaultBackground];
     [dishes setSeparatorColor:[UIColor colorWithRed:64.0/255 green:122.0/255 blue:145.0/255 alpha:0.9]];
     [dishes setDelegate:(id)self];
     [dishes setDataSource:(id)self];

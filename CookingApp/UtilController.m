@@ -156,6 +156,24 @@
     [settingsTab setEnabled:NO];
 }
 
+- (void)showTabBarAndExtendTableView:(UITableView *)tableView
+{
+    //[self.tabBarController.tabBar setHidden:NO];
+    [UIView animateWithDuration:.25
+                     animations: ^ {
+                         [self.tabBarController.tabBar setAlpha:1.0];
+                     }];
+}
+
+- (void)hideTabBarAndExtendTableView:(UITableView *)tableView
+{
+    //[self.tabBarController.tabBar setHidden:YES];
+    [UIView animateWithDuration:.25
+                     animations: ^ {
+                         [self.tabBarController.tabBar setAlpha:0.0];
+                     }];
+}
+
 // Start UITableView Delegate Methods //
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath 
@@ -188,18 +206,22 @@
     UIImage *unselectedImage2 = [UIImage imageNamed:@"tab_settings.png"];
     
     UITabBar *tabBar = self.tabBarController.tabBar;
+    NSArray *tabBarSubviews = self.tabBarController.view.subviews;
     [tabBar setBackgroundImage:[UIImage imageNamed:@"tabbar.png"]];
+    
     UITabBarItem *item0 = [tabBar.items objectAtIndex:0];
-    [item0 setTitle:@"Dishes"];
     UITabBarItem *item1 = [tabBar.items objectAtIndex:1];
-    [item1 setTitle:@"Start"];
     UITabBarItem *item2 = [tabBar.items objectAtIndex:2];
+    
+    [item0 setTitle:@"Dishes"];
+    [item1 setTitle:@"Start"];
     [item2 setTitle:@"Settings"];
     
     [item0 setFinishedSelectedImage:selectedImage0 withFinishedUnselectedImage:unselectedImage0];
     [item1 setFinishedSelectedImage:selectedImage1 withFinishedUnselectedImage:unselectedImage1];
     [item2 setFinishedSelectedImage:selectedImage2 withFinishedUnselectedImage:unselectedImage2];
     
+    [[tabBarSubviews objectAtIndex:0] setFrame:CGRectMake(0, 0, STD_WIDTH, STD_HEIGHT)];
 	// Do any additional setup after loading the view, typically from a nib.
 }
 

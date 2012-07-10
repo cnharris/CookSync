@@ -48,6 +48,8 @@
 - (void)loadCustomTabbar;
 - (void)enableDishesSettingsTabs;
 - (void)disableDishesSettingsTabs;
+- (void)showTabBarAndExtendTableView:(UITableView *)tableView;
+- (void)hideTabBarAndExtendTableView:(UITableView *)tableView;
 
 // UITableView Delegate Methods
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath;
