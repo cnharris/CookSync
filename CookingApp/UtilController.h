@@ -50,6 +50,7 @@
 - (void)disableDishesSettingsTabs;
 - (void)showTabBarAndExtendTableView:(UITableView *)tableView;
 - (void)hideTabBarAndExtendTableView:(UITableView *)tableView;
+- (int)durationFieldToMinutes:(NSString *)duration;
 
 // UITableView Delegate Methods
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath;

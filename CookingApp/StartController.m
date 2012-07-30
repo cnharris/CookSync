@@ -31,6 +31,7 @@
 @synthesize stopTimers;
 @synthesize prepTimers;
 @synthesize title;
+@synthesize cell;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -242,8 +243,8 @@
 - (void)buildAlertAndStopExecution
 {
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
-    NSString *msg = @"Oops, all your dishes will not be ready by this time. Please select a later time.";
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"End Time Error" message:msg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    NSString *msg = @"You haven't given enough time to complete all your dishes. Please select a later end time.";
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Oops!" message:msg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
     [self.view addSubview:alert];
     [alert show];
 }
@@ -255,14 +256,14 @@
     NSDate *stopTimeMinusStartTimeAndPrepTime = nil;
     NSDate *prepTime = nil;
     
-    for(DishController *cell in AD.startTracker){
+    for(DishController *dish in AD.startTracker){
         
-        stopTimeMinusStartTime = [self getNsdateFromTimeMinusDuration:stopTime withStringDuration:[cell duration]];
+        stopTimeMinusStartTime = [self getNsdateFromTimeMinusDuration:stopTime withStringDuration:[dish duration]];
         stopTimeMinusStartTimeAndPrepTime = [stopTimeMinusStartTime dateByAddingTimeInterval:-[self prepTimeSeconds]];
-        prepTime = [cell prepTime];
+        prepTime = [dish prepTime];
         
         NSLog(@"compare: %@",stopTimeMinusStartTime);
-        NSLog(@"prep: %@",[cell prepTime]);
+        NSLog(@"prep: %@",[dish prepTime]);
         NSLog(@"stoptime: %@",stopTime);
         
         NSLog(@"Results: %d",[stopTimeMinusStartTime compare:prepTime]);
@@ -288,9 +289,9 @@
         }
     }
     
-    for(DishController *cell in AD.startTracker){
-        [cell setTimeLeftAction:@""];
-        [cell setTimeLeft:@""];
+    for(DishController *dish in AD.startTracker){
+        [dish setTimeLeftAction:@""];
+        [dish setTimeLeft:@""];
     }
         
     stopTimers = nil;
@@ -307,19 +308,19 @@
     NSTimer *stopTimer = nil;
     int count = 0;
     
-    for(DishController *cell in AD.startTracker){
+    for(DishController *dish in AD.startTracker){
         NSDate *prepTimeStart = [NSDate date];
-        NSDate *startTime = [self getNsdateFromTimeMinusDuration:stopTime withStringDuration:[cell duration]];
+        NSDate *startTime = [self getNsdateFromTimeMinusDuration:stopTime withStringDuration:[dish duration]];
         NSDictionary *userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:
-                                         [cell title],@"title",
+                                         [dish title],@"title",
                                          [NSString stringWithFormat:@"%d",count],@"tag",
                                          prepTimeStart,@"prepTimeStart",
                                          startTime,@"startTime",
                                          nil];
         NSLog(@"START TIME: %@",startTime);
         NSLog(@"PREP TIME: %@",prepTimeStart);
-        [cell setStartTime:startTime];
-        [cell setPrepTime:prepTimeStart];
+        [dish setStartTime:startTime];
+        [dish setPrepTime:prepTimeStart];
         
         prepTimer = [[NSTimer alloc] initWithFireDate:prepTimeStart interval:1.0 target:self selector:@selector(prepTimeCallback:) userInfo:userInfo repeats:YES];
         stopTimer = [[NSTimer alloc] initWithFireDate:startTime interval:1.0 target:self selector:@selector(stopTimeCallback:) userInfo:userInfo repeats:YES];
@@ -334,13 +335,13 @@
 
 - (void)buildNotifications
 {
-    for(DishController *cell in AD.startTracker){
+    for(DishController *dish in AD.startTracker){
         //Reminder prepTime
-        NSDate *startTime = [self getNsdateFromTimeMinusDuration:stopTime withStringDuration:[cell duration]];
-        [self aboutToStartNotification:startTime withTitle:[cell title]];
+        NSDate *startTime = [self getNsdateFromTimeMinusDuration:stopTime withStringDuration:[dish duration]];
+        [self aboutToStartNotification:startTime withTitle:[dish title]];
         
         //PrepTimeOver
-        NSString *prepOver = [NSString stringWithFormat:@"Start %@ now!",[cell title]];
+        NSString *prepOver = [NSString stringWithFormat:@"Start %@ now!",[dish title]];
         [self setupNotification:[startTime dateByAddingTimeInterval:-1] withMessage:prepOver];
     }
     
@@ -444,22 +445,22 @@
         return;
     }
 
-    DishController *cell = [AD.startTracker objectAtIndex:[[timer.userInfo objectForKey:@"tag"] integerValue]];
-    [cell setTimeLeftAction:@"Starts in"];
-    [cell setTimeLeft:[NSString stringWithFormat:@"%@",[self formattedTime:timeLeftHash]]];
+    DishController *dish = [AD.startTracker objectAtIndex:[[timer.userInfo objectForKey:@"tag"] integerValue]];
+    [dish setTimeLeftAction:@"Starts in"];
+    [dish setTimeLeft:[NSString stringWithFormat:@"%@",[self formattedTime:timeLeftHash]]];
     [dishes reloadData];
 }
 
 - (void)stopTimeCallback:(NSTimer *)timer
 {
     NSDictionary *timeLeftHash = [self differenceBetweenTwoNSDates:[NSDate date] withDate:stopTime];
-    DishController *cell = [AD.startTracker objectAtIndex:[[timer.userInfo objectForKey:@"tag"] integerValue]];
+    DishController *dish = [AD.startTracker objectAtIndex:[[timer.userInfo objectForKey:@"tag"] integerValue]];
     int hours = [[timeLeftHash objectForKey:@"hours"] integerValue];
     int mins = [[timeLeftHash objectForKey:@"minutes"] integerValue];
     int secs = [[timeLeftHash objectForKey:@"seconds"] integerValue];
     
-    [cell setTimeLeftAction:@"Finishes in"];
-    [cell setTimeLeft:[NSString stringWithFormat:@"%@",[self formattedTime:timeLeftHash]]];
+    [dish setTimeLeftAction:@"Finishes in"];
+    [dish setTimeLeft:[NSString stringWithFormat:@"%@",[self formattedTime:timeLeftHash]]];
     
     //SETTING    
     if(hours <= 0 && mins <= 0 && secs <= 0){
@@ -503,8 +504,8 @@
 
 - (void)doneSound
 {
-    if(![AD.audioController.boxingPlayer isPlaying]){
-        [AD.audioController playBoxing];
+    if(![AD.audioController.boxingPlayerEnd isPlaying]){
+        [AD.audioController playBoxingEnd];
     }
 }
 
@@ -568,8 +569,8 @@
 {
     NSDictionary *duration = NULL;
     NSDictionary *largest = NULL;
-    for(DishController *cell in AD.startTracker){
-        duration = [self parseDuration:[cell duration]];
+    for(DishController *dish in AD.startTracker){
+        duration = [self parseDuration:[dish duration]];
         largest = [self compareHashTimes:largest withTime:duration];
     }
     return largest;
@@ -692,7 +693,6 @@
 
 - (UITableViewCell*)cellType:(NSString*)cellId
 { 
-    StartCell *cell = NULL;
     if(cellId == @"StartCell")
     {
         cell = [[StartCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
@@ -719,7 +719,7 @@
     NSDate *date;    
     
     static NSString *cellId = @"multiLineWithSubtitle";
-    StartCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     if (cell == nil) {        
         cell = [[StartCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
         [cell setTag:indexPath.row];
@@ -730,15 +730,16 @@
     [[cell detailTextLabel] setText:[data duration]];
     [[cell timeLeftAction] setText:[data timeLeftAction]];
     [[cell timeLeft] setText:[data timeLeft]];
+    [cell setTextColorBasedOnAction];
     
     if(AD.allDone){
         [[cell doneIcon] setHidden:NO];
         [startStop setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"start_starttimers_button.png"]]];
         [startStop setTag:0];
+        [self showTabBarAndExtendTableView:dishes];
     } else {
         [[cell doneIcon] setHidden:YES];
     }
-    
     
     dataHsh = [self parseDuration:[data duration]];
     hours = [[dataHsh objectForKey:@"hours"] integerValue];

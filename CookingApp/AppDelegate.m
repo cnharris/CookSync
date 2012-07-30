@@ -28,6 +28,7 @@
 @synthesize startController;
 @synthesize settingsController;
 @synthesize settingsdetailController;
+@synthesize utilController;
 @synthesize timerController;
 @synthesize timerRunning;
 @synthesize allDone;
@@ -79,6 +80,7 @@
     startController = [[StartController alloc] init];
     settingsdetailController = [[SettingsdetailController alloc] init];
     audioController = [[AudioController alloc] init];
+    utilController = [[UtilController alloc] init];
     
     // *** IMPORTANT *** //
     // *** Set context to appDelegate context for ANY controller using CORE DATA *** //
@@ -104,7 +106,7 @@
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
     [[[UIAlertView alloc] initWithTitle:@"Reminder" message:[notification alertBody] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
-    self.allDone ? [self.audioController playBoxing] : [self.audioController playBell];
+    self.allDone ? [self.audioController playBoxingEnd] : [self.audioController playBell];
 }
 							
 - (void)applicationWillResignActive:(UIApplication *)application

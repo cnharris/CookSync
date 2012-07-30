@@ -75,10 +75,14 @@
 - (IBAction)addDish:(id)sender
 {
     //[self checkIfAddToFavorites];
+    NSString *durText = [durationField text];
     currentValues = [[DishController alloc] init];
     [currentValues setTitle:[nameField text]];
-    [currentValues setDuration:[durationField text]];
+    [currentValues setDuration:durText];
+    [currentValues setMinutes:[AD.utilController durationFieldToMinutes:durText]];
     [currentValues setIcon:@"dish_icon.png"];
+    NSLog(@"parts: %@",[AD.utilController durationFieldToMinutes:durText]);
+    
     [AD.configureTracker addObject:currentValues];
     [AD.configureController.dishes setContentSize:CGSizeMake(STD_WIDTH, CELL_HEIGHT*[AD.configureTracker count])];
     [self dismissModalViewControllerAnimated:YES];
@@ -91,8 +95,10 @@
 
 - (void)saveFieldValuesToConfigureTracker
 {
+    NSString *durText = [durationField text];
     [currentValues setTitle:[nameField text]];
-    [currentValues setDuration:[durationField text]];
+    [currentValues setDuration:durText];
+    [currentValues setMinutes:[AD.utilController durationFieldToMinutes:durText]];
 }
 
 - (void)buildName
@@ -117,7 +123,7 @@
         [nameField setFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:18.0f]];
         [nameField setTextAlignment:UITextAlignmentCenter];
         [nameField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
-        [nameField addTarget:self action:@selector(close:) forControlEvents:UIControlEventEditingDidEndOnExit];
+        [nameField addTarget:self action:@selector(closeKeyboard:) forControlEvents:UIControlEventEditingDidEndOnExit];
         
         [nameContainer addSubview:nameField];
         [canvas addSubview:nameContainer];
@@ -333,7 +339,12 @@
     }
 }
 
-- (IBAction)close:(id)sender { 
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [nameField resignFirstResponder];    
+}
+
+- (IBAction)closeKeyboard:(id)sender { 
     [nameField resignFirstResponder]; 
 }
 

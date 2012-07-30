@@ -28,5 +28,6 @@
 - (BOOL)doneIconIsHidden;
 - (void)showDoneIcon;
 - (void)hideDoneIcon;
+- (void)setTextColorBasedOnAction;
 
 @end

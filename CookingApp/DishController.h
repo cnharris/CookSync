@@ -18,6 +18,7 @@
     NSDate *prepTime;
     NSDate *startTime;
     BOOL *doneIcon;
+    int minutes;
 }
 
 @property (nonatomic, retain) NSString *title;
@@ -28,5 +29,6 @@
 @property (nonatomic, retain) NSDate *prepTime;
 @property (nonatomic, retain) NSDate *startTime;
 @property (nonatomic, assign) BOOL *doneIcon;
+@property int minutes;
 
 @end

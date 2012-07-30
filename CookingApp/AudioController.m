@@ -11,7 +11,8 @@
 @implementation AudioController
 
 @synthesize bellPlayer;
-@synthesize boxingPlayer;
+@synthesize boxingPlayerStart;
+@synthesize boxingPlayerEnd;
 
 - (id)init
 {
@@ -27,9 +28,11 @@
 	NSError *berror;
     NSError *bxerror;
 	bellPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:bellUrl error:&berror];
-    boxingPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:boxingUrl error:&bxerror];
+    boxingPlayerStart = [[AVAudioPlayer alloc] initWithContentsOfURL:boxingUrl error:&bxerror];
+    boxingPlayerEnd = [[AVAudioPlayer alloc] initWithContentsOfURL:boxingUrl error:&bxerror];
 	bellPlayer.numberOfLoops = 0;
-    boxingPlayer.numberOfLoops = 2;
+    boxingPlayerStart.numberOfLoops = 0;
+    boxingPlayerEnd.numberOfLoops = 2;
     
 	if (bellPlayer == nil){
 		NSLog(@"%@",[berror description]);
@@ -49,9 +52,14 @@
     [bellPlayer play];
 }
 
-- (void)playBoxing
+- (void)playBoxingStart
 {
-    [boxingPlayer play];
+    [boxingPlayerStart play];
+}
+
+- (void)playBoxingEnd
+{
+    [boxingPlayerEnd play];
 }
 
 - (void)stopBell

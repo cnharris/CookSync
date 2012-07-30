@@ -16,11 +16,13 @@
 }
 
 @property (nonatomic, retain) AVAudioPlayer *bellPlayer;
-@property (nonatomic, retain) AVAudioPlayer *boxingPlayer;
+@property (nonatomic, retain) AVAudioPlayer *boxingPlayerStart;
+@property (nonatomic, retain) AVAudioPlayer *boxingPlayerEnd;
 
 - (void)setupSounds;
 - (void)playBell;
-- (void)playBoxing;
+- (void)playBoxingStart;
+- (void)playBoxingEnd;
 - (void)stopBell;
 - (void)stopBoxing;
 

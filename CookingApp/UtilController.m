@@ -18,6 +18,7 @@
 @synthesize plusBarButton;
 @synthesize cancelBarButton;
 @synthesize favoritesBarButton;
+@synthesize backBarButton;
 @synthesize editButton;
 @synthesize doneButton;
 @synthesize plusButton;
@@ -172,6 +173,13 @@
                      animations: ^ {
                          [self.tabBarController.tabBar setAlpha:0.0];
                      }];
+}
+
+- (int)durationFieldToMinutes:(NSString *)duration
+{
+    NSDictionary *timeParts = [AD.startController parseDuration:duration];
+    NSLog(@"duration: %@",duration);
+    return [[timeParts objectForKey:@"hours"] integerValue] * 60 + [[timeParts objectForKey:@"minutes"] integerValue];
 }
 
 // Start UITableView Delegate Methods //

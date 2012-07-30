@@ -28,6 +28,7 @@
     IBOutlet UIButton *startStop;
     IBOutlet UIAlertView *doneAlert;
     IBOutlet UILabel *addDish;
+    IBOutlet StartCell *cell;
     
     NSDate *startTimeButtonPressed;
     NSDate *stopTime;
@@ -51,6 +52,7 @@
 @property (nonatomic, retain) IBOutlet UITapGestureRecognizer *labelTapGesture;
 @property (nonatomic, retain) IBOutlet UIButton *startStop;
 @property (nonatomic, retain) IBOutlet UILabel *addDish;
+@property (nonatomic, retain) IBOutlet StartCell *cell;
 
 @property NSDate *startTimeButtonPressed;
 @property NSDate *stopTime;
@@ -59,6 +61,7 @@
 @property NSMutableArray *stopTimers;
 
 - (NSInteger *)getTimeMinutes:(NSDictionary *)time;
+- (NSMutableDictionary *)parseDuration:(NSString *)duration;
 - (void)stopAllTimers;
 
 @end

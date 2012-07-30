@@ -12,6 +12,7 @@
 		2A293456156428C700C8F5AD /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A293455156428C700C8F5AD /* CoreData.framework */; };
 		2A298735157AA38800871374 /* start_doneIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A298734157AA38800871374 /* start_doneIcon@2x.png */; };
 		2A298738157AA56700871374 /* start_resettimers_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A298737157AA56700871374 /* start_resettimers_button@2x.png */; };
+		2A29F21215B12E7E00271DA6 /* CookSync_icon_114.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A29F21115B12E7E00271DA6 /* CookSync_icon_114.png */; };
 		2A516BEE156D5B0D0023F8A2 /* FavoritesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A516BED156D5B0C0023F8A2 /* FavoritesController.m */; };
 		2A516C09156EE8240023F8A2 /* dish_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A516C04156EE8240023F8A2 /* dish_icon@2x.png */; };
 		2A516C0A156EE8240023F8A2 /* edit_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A516C05156EE8240023F8A2 /* edit_icon@2x.png */; };
@@ -71,7 +72,6 @@
 		2AC65CED159186EE00C165AE /* CookSync_launch in Resources */ = {isa = PBXBuildFile; fileRef = 2AC65CE5159186EE00C165AE /* CookSync_launch */; };
 		2AC65CEE159186EE00C165AE /* CookSync_launch_cropped.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2AC65CE6159186EE00C165AE /* CookSync_launch_cropped.jpg */; };
 		2AC65CF11591870500C165AE /* CookSync_icon_57.png in Resources */ = {isa = PBXBuildFile; fileRef = 2AC65CF01591870500C165AE /* CookSync_icon_57.png */; };
-		2AC65CF31591871100C165AE /* CookSync_icon_114.png in Resources */ = {isa = PBXBuildFile; fileRef = 2AC65CF21591871100C165AE /* CookSync_icon_114.png */; };
 		2AC65CF61591880700C165AE /* CookSync_launch.png in Resources */ = {isa = PBXBuildFile; fileRef = 2AC65CF41591880700C165AE /* CookSync_launch.png */; };
 		2AC65CF71591880700C165AE /* CookSync_launch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2AC65CF51591880700C165AE /* CookSync_launch@2x.png */; };
 		2AC65CF91591884100C165AE /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 2AC65CF81591884100C165AE /* Default.png */; };
@@ -97,6 +97,7 @@
 		2A293455156428C700C8F5AD /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		2A298734157AA38800871374 /* start_doneIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "start_doneIcon@2x.png"; sourceTree = "<group>"; };
 		2A298737157AA56700871374 /* start_resettimers_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "start_resettimers_button@2x.png"; sourceTree = "<group>"; };
+		2A29F21115B12E7E00271DA6 /* CookSync_icon_114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CookSync_icon_114.png; sourceTree = "<group>"; };
 		2A516BEC156D5B0C0023F8A2 /* FavoritesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoritesController.h; sourceTree = "<group>"; };
 		2A516BED156D5B0C0023F8A2 /* FavoritesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesController.m; sourceTree = "<group>"; };
 		2A516C04156EE8240023F8A2 /* dish_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dish_icon@2x.png"; sourceTree = "<group>"; };
@@ -162,7 +163,6 @@
 		2AC65CE5159186EE00C165AE /* CookSync_launch */ = {isa = PBXFileReference; lastKnownFileType = file; name = CookSync_launch; path = final/CookSync_launch; sourceTree = "<group>"; };
 		2AC65CE6159186EE00C165AE /* CookSync_launch_cropped.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = CookSync_launch_cropped.jpg; path = final/CookSync_launch_cropped.jpg; sourceTree = "<group>"; };
 		2AC65CF01591870500C165AE /* CookSync_icon_57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CookSync_icon_57.png; sourceTree = "<group>"; };
-		2AC65CF21591871100C165AE /* CookSync_icon_114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CookSync_icon_114.png; sourceTree = "<group>"; };
 		2AC65CF41591880700C165AE /* CookSync_launch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CookSync_launch.png; path = final/CookSync_launch.png; sourceTree = "<group>"; };
 		2AC65CF51591880700C165AE /* CookSync_launch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "CookSync_launch@2x.png"; path = "final/CookSync_launch@2x.png"; sourceTree = "<group>"; };
 		2AC65CF81591884100C165AE /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
@@ -365,8 +365,8 @@
 				2AC65CFC1591885500C165AE /* CookSync.entitlements */,
 				2AC65CFA1591884D00C165AE /* Default@2x.png */,
 				2AC65CF81591884100C165AE /* Default.png */,
-				2AC65CF21591871100C165AE /* CookSync_icon_114.png */,
 				2AC65CF01591870500C165AE /* CookSync_icon_57.png */,
+				2A29F21115B12E7E00271DA6 /* CookSync_icon_114.png */,
 				2AE575B8154B51240045972A /* icons */,
 				2AD6566D152A9CC70045DC5F /* CookingApp */,
 				2AD65666152A9CC70045DC5F /* Frameworks */,
@@ -562,7 +562,6 @@
 				2AC65CED159186EE00C165AE /* CookSync_launch in Resources */,
 				2AC65CEE159186EE00C165AE /* CookSync_launch_cropped.jpg in Resources */,
 				2AC65CF11591870500C165AE /* CookSync_icon_57.png in Resources */,
-				2AC65CF31591871100C165AE /* CookSync_icon_114.png in Resources */,
 				2AC65CF61591880700C165AE /* CookSync_launch.png in Resources */,
 				2AC65CF71591880700C165AE /* CookSync_launch@2x.png in Resources */,
 				2AC65CF91591884100C165AE /* Default.png in Resources */,
@@ -571,6 +570,7 @@
 				2A9C1FA5159427F700541CDB /* CookSync_icon_114.png in Resources */,
 				2A1AA68E1596E4F900169CC2 /* bell.mp3 in Resources */,
 				2A1AA68F1596E4F900169CC2 /* boxingbell.mp3 in Resources */,
+				2A29F21215B12E7E00271DA6 /* CookSync_icon_114.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -627,8 +627,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Christopher Harris (YS5HSFY76G)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Christopher Harris (YS5HSFY76G)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -643,8 +643,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				PROVISIONING_PROFILE = "7E7859C5-1CA9-4F68-8507-580AF78A89FA";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "632860B7-072E-4B1E-A085-EFFF28F948A5";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -655,8 +655,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Christopher Harris";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Christopher Harris";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -665,8 +665,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "4A7D0CAB-70D4-4BB2-94DF-E4B7DB1FB0C3";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4A7D0CAB-70D4-4BB2-94DF-E4B7DB1FB0C3";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
 				VALIDATE_PRODUCT = YES;
@@ -676,11 +676,15 @@
 		2AD6568D152A9CC80045DC5F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CookingApp/CookSync-Prefix.pch";
 				INFOPLIST_FILE = "CookingApp/CookSync-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = CookSync;
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SKIP_INSTALL = NO;
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
@@ -690,11 +694,15 @@
 		2AD6568E152A9CC80045DC5F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CookingApp/CookSync-Prefix.pch";
 				INFOPLIST_FILE = "CookingApp/CookSync-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = CookSync;
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SKIP_INSTALL = NO;
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;

@@ -53,6 +53,7 @@
 @property (nonatomic, retain) SettingsController *settingsController;
 @property (nonatomic, retain) DishdetailController *timerController;
 @property (nonatomic, retain) SettingsdetailController *settingsdetailController;
+@property (nonatomic, retain) UtilController *utilController;
 @property BOOL timerRunning;
 @property BOOL allDone;
 

@@ -18,5 +18,6 @@
 @synthesize startTime;
 @synthesize prepTime;
 @synthesize doneIcon;
+@synthesize minutes;
 
 @end

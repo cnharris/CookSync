@@ -36,7 +36,6 @@
     [[canvas layer] setCornerRadius:6.0];
     [canvas setBackgroundColor:[UIColor whiteColor]];
     [self.view addSubview:canvas];
-    
 	// Do any additional setup after loading the view.
 }
 
@@ -250,6 +249,11 @@
     [hsh setObject:[hoursAndLabel objectAtIndex:0] forKey:@"hours"];
     [hsh setObject:[minsAndLabel objectAtIndex:0] forKey:@"mins"];
     return hsh;
+}
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [nameField resignFirstResponder];    
 }
 
 - (IBAction)closeKeyboard:(id)sender { 

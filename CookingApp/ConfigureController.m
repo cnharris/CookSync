@@ -236,11 +236,14 @@
     //Dish Name
     [[cell textLabel] setText:[data title]];
     [[cell textLabel] setTextColor:[UIColor whiteColor]];
-    [[cell textLabel] setFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:22.0f]];
+    [[cell textLabel] setFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:18.0f]];
+    [[cell textLabel] setTextColor:[UIColor whiteColor]];
     [cell setTag:indexPath.row];
     
     //Dish duration
     [[cell detailTextLabel] setText:[NSString stringWithFormat:@"Cook Time: %@",[data duration]]];
+    [[cell detailTextLabel] setFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:14.0f]];
+    [[cell detailTextLabel] setTextColor:[UIColor colorWithRed:181.0/255 green:181.0/255 blue:181.0/255 alpha:1.0]];
     
     //Edit accessory icon
     UIImage *indicatorImage = [UIImage imageNamed:@"edit_icon"];
